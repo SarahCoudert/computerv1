@@ -12,92 +12,98 @@
 #include "computer.h"
 #include "libft.h"
 
-// static void test(t_list **lst)
-// {
-// 	t_list *ptr;
-
-// 	ptr = *lst;
-// 	while (ptr->next)
-// 	{
-// 		ft_putnbr((int)((t_stru*)(ptr->content))->multi);
-// 		ft_putendl("");
-// 		ft_putnbr(((t_stru*)(ptr->content))->sign);
-// 		ft_putendl("");
-// 		ft_putnbr(((t_stru*)(ptr->content))->exp);
-// 		ft_putendl("\n");
-// 		ptr = ptr->next;
-// 	}
-// }
-
 void		parse(char *s)
 {
 	int i;
-	int j;
 	t_list	*lst;
 	t_stru*	stru;
+	int	n;
+	int		default_n;
 
 	stru = (t_stru*)ft_strnew(sizeof(t_stru));
 	i = 0;
-	j = 0;
-	stru->sign = 1;
+	n = 1;
+	default_n = 1;
 	while (s[i] != '\0')
 	{
-		while (s[i] != '\0' && s[i] != '-' && s[i] != '+' && s[i] != '=')
-	{	if (ft_isspace(s[i]) == 1 && s[i])
+		if (ft_isspace(s[i]) == 1 && s[i])
 		{
 			i++;
 			continue;
 		}
-		if (s[i] == '-')
+		if (s[i] == '+' && ++i)
+			continue ;
+		if (s[i] == '-' && ++i)
 		{
-			i++;
-			stru->sign = -1;
-			continue;
+			n = -1 * n;
+			continue ;
 		}
-		if ((ft_isdigit(s[i])) != 0)
+		if (s[i] == '=' && ++i)
 		{
-			stru->multi = ft_atoi(s + i);
-			while ((ft_isdigit(s[i + j]) != 0))
-				j++;
-			i += j;
-			j = 0;
-			continue;
+			if (default_n == -1)
+				ft_put_error("WARNING : Two '=' signs in string", 1, -1);
+			default_n = -1;
 		}
-		if (s[i] == '*')
-		{
-			i++;
-			continue;
-		}
-		if (s[i] == 'X')
-		{
-			stru->exp = 1;
-			i++;
-	//		if (s[i] && s[i] == '^' && s[i - 1] == 'X' && ft_isdigit(s[i + 1]) != 0)
-			if (s[i] == '^')
-			{
-				i++;
-				stru->exp = ft_atoi(s + i);
-				while (ft_isspace(s[i]) && ft_isdigit(s[i]))
-					i++;
-			}
-		}
-		if (s[i] && (s[i] == '*' || s[i] == '+' || s[i] == '-' ||
-			s[i] == '='))
-			i++;
-		if (stru->sign != -1)
-			stru->sign = 1;
-	}
+		stru = fill_stru(&i, stru, n, s);
+		ft_lstaddend((void*)&stru, sizeof(t_stru), &lst);
 		ft_putnbr(stru->sign);
 		ft_putendl("");
 		ft_putnbr(stru->multi);
 		ft_putendl("");
 		ft_putnbr(stru->exp);
 		ft_putendl("\n");
-		ft_lstaddend((void*)&stru, sizeof(t_stru), &lst);
-		ft_bzero(stru, sizeof(t_stru));
+		if (s[i] == '=' && ++i)
+		{
+			if (default_n == -1)
+				ft_put_error("WARNING : Two '=' signs in string", 1, -1);
+			default_n = -1;
+		}
+		n = default_n;
 	}
-	// test(&lst);
 }
 
-			//const void *content, size_t content_size, t_list **plst
-			//ft_lstaddend(s[i]);
+t_stru		*fill_stru(int *i, t_stru *stru, int sign, char *s)
+{
+	int	bol;
+		//const void *content, size_t content_size, t_list **plst
+		//ft_lstaddend(s[*i]);
+		ft_bzero(stru, sizeof(t_stru));
+		stru->sign = sign;
+		bol = 0;
+		while (s[*i] != '\0' && s[*i] != '-' && s[*i] != '+' && s[*i] != '=')
+		{
+			if (ft_isspace(s[*i]) == 1 && s[*i])
+			{
+				i++;
+				continue;
+			}
+			if ((ft_isdigit(s[*i])) != 0)
+			{
+				bol = 1;
+				stru->multi = ft_atoi(s + *i);
+ 				while (s[*i] && (ft_isdigit(s[*i]) != 0))
+					i++;
+				continue;
+			}
+			if (s[*i] == '*')
+			{
+				i++;
+				continue;
+			}
+			if (s[*i] == 'X')
+			{
+				if (bol != 1 && stru->multi == 0)
+					stru->multi = 1;
+				stru->exp = 1;
+		//		if (s[*i] && s[*i] == '^' && s[*i - 1] == 'X' && ft_isdigit(s[*i + 1]) != 0)
+				if (s[*i] == '^')
+				{
+					i++;
+					stru->exp = ft_atoi(s + *i);
+					while (s[*i] && ft_isdigit(s[*i]))
+						i++;
+				}
+			}
+		}
+		return (stru);
+}

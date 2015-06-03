@@ -12,6 +12,7 @@ typedef struct		s_stru
 
 // t_env 	*get_env();
 void		parse(char *s);
+t_stru		*fill_stru(int *i, t_stru *stru, int sign, char *s);
 
 // get_env()
 // {
