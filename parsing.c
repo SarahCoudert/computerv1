@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/06/03 17:22:57 by mgrimald          #+#    #+#             */
+/*   Updated: 2015/06/03 18:58:50 by mgrimald         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 /*
  ** Input examples :
  ** "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"
@@ -13,12 +25,12 @@
 
 int			ft_skip(char *s, int *i, int b);
 void		parse(char *s);
-t_stru		*fill_stru(int *i, t_stru *stru, int sign, char *s);
+t_stru		*fill_stru(int *i, t_stru *stru, char *s);
 
 void		parse(char *s)
 {
 	int		i;
-	t_list	*lst;
+	t_list	*list;
 	t_stru*	stru;
 	int		n;
 	int		default_n;
@@ -31,7 +43,7 @@ void		parse(char *s)
 	{
 		n *= ft_skip(s, &i, 1);
 		stru = fill_stru(&i, stru, n, s);
-		ft_lstaddend((void*)&stru, sizeof(t_stru), &lst);
+		ft_lstaddend((void*)stru, sizeof(t_stru), &list);
 		ft_putnbr(stru->sign);
 		ft_putendl("");
 		ft_putnbr(stru->multi);
@@ -46,6 +58,7 @@ void		parse(char *s)
 		}
 		n = default_n;
 	}
+	free(stru);
 }
 
 int			ft_skip(char *s, int *i, int b)
@@ -70,14 +83,13 @@ int			ft_skip(char *s, int *i, int b)
 	return (n);
 }
 
-t_stru		*fill_stru(int *i, t_stru *stru, int sign, char *s)
+t_stru		*fill_stru(int *i, t_stru *stru, char *s)
 {
 	int		bol;
 	int		mult;
 
 
 	ft_bzero(stru, sizeof(t_stru));
-	stru->sign = sign;
 	bol = 0;
 	mult = 1;
 	while (s[*i] != '\0' && ((s[*i] != '-' && s[*i] != '+') || mult == 1) && s[*i] != '=')
@@ -96,11 +108,8 @@ t_stru		*fill_stru(int *i, t_stru *stru, int sign, char *s)
 			bol = 1;
 			mult = 0;
 		}
-		else if (s[*i] == '*')
-		{
+		else if (s[*i] == '*' && (mult = 1))
 			*i = *i + 1;
-			mult = 1;
-		}
 		else if (s[*i] == 'X' || s[*i] == 'x')
 		{
 			*i = *i + 1;

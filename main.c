@@ -6,7 +6,7 @@
 /*   By: scoudert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/01 18:43:41 by scoudert          #+#    #+#             */
-/*   Updated: 2015/06/03 17:16:35 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/03 17:22:02 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ int		main(int ac, char **av)
 	}
 	else
 		ft_put_error("Wrong number of arguments", 1, -1);
+	while (1)
+		;
 	return (0);
 }

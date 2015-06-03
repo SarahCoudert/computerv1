@@ -14,6 +14,6 @@ typedef struct		s_stru
 }					t_stru;
 
 void			parse(char *s);
-t_stru			*fill_stru(int *i, t_stru *stru, int sign, char *s);
+t_stru			*fill_stru(int *i, t_stru *stru, char *s);
 
 #endif
