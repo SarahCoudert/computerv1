@@ -8,7 +8,7 @@ double		square_root(double n)
 
 	y = 1;
 	x = n;
-	e = 0,000001;
+	e = 0.000001;
 	while (x - y > e)
 	{
 		x = (x + y) / 2;
@@ -17,30 +17,30 @@ double		square_root(double n)
 	return (x);
 }
 
-t_str		sort_stru(s_stru *stru)
+t_list		*sort_list(t_list *list)
 {
-	t_stru	*ptr;
+	t_list	*ptr;
 	int		temp;
 
 	temp = 0;
-	ptr = stru;
-	while (stru->next)
+	ptr = list;
+	while (list->next)
 	{
-		if (stru->exp < stru->next->exp)
+		if ((int)(STRU->exp < (int)STRU_NEXT->exp))
 		{
-			temp = stru->exp;
-			stru->exp = stru->next->exp;
-			stru->next->exp = temp;
-			temp = stru->multi;
-			stru->multi = stru->next->multi;
-			stru->next->multi = temp;
-			temp = stru->sign;
-			stru->sign = stru->next->sign;
-			stru->next->sign = temp;
+ 			temp = (int)(STRU)->exp;
+			(STRU)->exp = (int)STRU_NEXT->exp;
+			STRU_NEXT->exp = temp;
+			temp = (int)STRU->multi;
+			(STRU)->multi = (int)STRU_NEXT->multi;
+			STRU_NEXT->multi = temp;
+			temp = (int)STRU->sign;
+			STRU->sign = (int)STRU_NEXT->sign;
+			STRU_NEXT->sign = temp;
 			continue ;
 		}
 		else
-			stru = stru->next;
+			list = list->next;
 	}
 	return (ptr);
 }

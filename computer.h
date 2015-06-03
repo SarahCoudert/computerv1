@@ -3,6 +3,9 @@
 
 #include "libft.h"
 
+#define STRU		((t_stru*)(list->content))
+#define STRU_NEXT	((t_stru*)(list->next->content))
+
 typedef struct		s_stru
 {
 	int				sign;
@@ -10,22 +13,7 @@ typedef struct		s_stru
 	int				exp;
 }					t_stru;
 
-// t_env 	*get_env();
-void		parse(char *s);
-t_stru		*fill_stru(int *i, t_stru *stru, int sign, char *s);
+void			parse(char *s);
+t_stru			*fill_stru(int *i, t_stru *stru, int sign, char *s);
 
-// get_env()
-// {
-// 	t_env env;
-// 	env = get_specified_env(NULL, 0);
-// 	return (env);
-// }
-
-// get_specified_env(void *data, int option)
-// {
-// 	static *env = NULL;
-// 	if (env == NULL)
-// 		env = dup data;
-// 	return (env);
-// }
 #endif

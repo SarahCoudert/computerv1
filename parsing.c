@@ -10,7 +10,14 @@
 */
 
 #include "computer.h"
-#include "libft.h"
+
+void	ft_skip(char *s, int i, t_stru *stru, int lol)
+{
+	(void)s;
+	(void)i;
+	(void)stru;
+	(void)lol;
+}
 
 void		parse(char *s)
 {
