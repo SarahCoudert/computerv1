@@ -13,7 +13,10 @@ typedef struct		s_stru
 	int				exp;
 }					t_stru;
 
-void			parse(char *s);
+t_list			*parse(char *s);
 t_stru			*fill_stru(int *i, t_stru *stru, int sign, char *s);
+int				ft_skip(char *s, int *i, int b);
+t_list			*sort_list(t_list *list);
+double			square_root(double n);
 
 #endif

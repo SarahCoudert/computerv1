@@ -10,14 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "libft.h"
-
-int			ft_isdigit(char c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
-}
+#include "libft.h"
 
 double		ft_atof(char *str, int *i)
 {
@@ -50,18 +43,4 @@ double		ft_atof(char *str, int *i)
 		vir = vir / 10;
 	}
 	return (sign * (nbr + vir));
-}
-
-#include <stdio.h>
-
-int		main(int argc, char **argv)
-{
-	int		i;
-
-	i = 0;
-	if (argc != 1)
-	{
-		printf("%s\n%f\n", argv[1], ft_atof(argv[1], &i));
-	}
-	return (0);
 }

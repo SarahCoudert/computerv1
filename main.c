@@ -25,11 +25,14 @@ void		test_square();
 
 int		main(int ac, char **av)
 {
+	t_list	*list;
+
+	list = NULL;
 	(void)av;
 	if (ac == 2)
 	{
-//		test_square();
-		parse(av[1]);
+		list = parse(av[1]);
+	//	sort_list(list);
 	}
 	else
 		ft_put_error("Wrong number of arguments", 1, -1);

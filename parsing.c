@@ -11,11 +11,7 @@
 
 #include "computer.h"
 
-int			ft_skip(char *s, int *i, int b);
-void		parse(char *s);
-t_stru		*fill_stru(int *i, t_stru *stru, int sign, char *s);
-
-void		parse(char *s)
+t_list		*parse(char *s)
 {
 	int		i;
 	t_list	*lst;
@@ -26,18 +22,19 @@ void		parse(char *s)
 	stru = (t_stru*)ft_strnew(sizeof(t_stru));
 	i = 0;
 	n = 1;
+	lst = NULL;
 	default_n = 1;
 	while (s[i] != '\0')
 	{
 		n *= ft_skip(s, &i, 1);
 		stru = fill_stru(&i, stru, n, s);
-		ft_lstaddend((void*)&stru, sizeof(t_stru), &lst);
 		ft_putnbr(stru->sign);
 		ft_putendl("");
 		ft_putnbr(stru->multi);
 		ft_putendl("");
 		ft_putnbr(stru->exp);
 		ft_putendl("\n");
+		ft_lstaddend((void*)stru, sizeof(t_stru), &lst);
 		if (s[i] == '=' && ++i)
 		{
 			if (default_n == -1)
@@ -46,6 +43,8 @@ void		parse(char *s)
 		}
 		n = default_n;
 	}
+	free(stru);
+	return (lst);
 }
 
 int			ft_skip(char *s, int *i, int b)
