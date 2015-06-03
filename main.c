@@ -6,13 +6,13 @@
 /*   By: scoudert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/01 18:43:41 by scoudert          #+#    #+#             */
-/*   Updated: 2015/06/02 10:49:48 by scoudert         ###   ########.fr       */
+/*   Updated: 2015/06/03 17:16:35 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "computer.h"
 
+void		test_square();
 /*
 ** Input examples :
 ** "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"
@@ -28,6 +28,7 @@ int		main(int ac, char **av)
 	(void)av;
 	if (ac == 2)
 	{
+//		test_square();
 		parse(av[1]);
 	}
 	else
