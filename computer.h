@@ -1,8 +1,6 @@
 #ifndef COMPUTER_H
 # define COMPUTER_H
 
-#include "libft.h"
-
 typedef struct		s_stru
 {
 	int				sign;
