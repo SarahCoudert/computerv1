@@ -28,12 +28,6 @@ t_list		*parse(char *s)
 	{
 		n *= ft_skip(s, &i, 1);
 		stru = fill_stru(&i, stru, n, s);
-		ft_putnbr(stru->sign);
-		ft_putendl("");
-		ft_putnbr(stru->multi);
-		ft_putendl("");
-		ft_putnbr(stru->exp);
-		ft_putendl("\n");
 		ft_lstaddend((void*)stru, sizeof(t_stru), &lst);
 		if (s[i] == '=' && ++i)
 		{
