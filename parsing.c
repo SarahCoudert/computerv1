@@ -26,24 +26,7 @@ void		parse(char *s)
 	default_n = 1;
 	while (s[i] != '\0')
 	{
-		if (ft_isspace(s[i]) == 1 && s[i])
-		{
-			i++;
-			continue;
-		}
-		if (s[i] == '+' && ++i)
-			continue ;
-		if (s[i] == '-' && ++i)
-		{
-			n = -1 * n;
-			continue ;
-		}
-		if (s[i] == '=' && ++i)
-		{
-			if (default_n == -1)
-				ft_put_error("WARNING : Two '=' signs in string", 1, -1);
-			default_n = -1;
-		}
+		stru = ft_skip(s, i, stru, 1);
 		stru = fill_stru(&i, stru, n, s);
 		ft_lstaddend((void*)&stru, sizeof(t_stru), &lst);
 		ft_putnbr(stru->sign);
@@ -62,48 +45,73 @@ void		parse(char *s)
 	}
 }
 
+int	ft_skip(char *s, int *i, t_stru *stru, int bolea)
+{
+	int	n;
+
+	n = 1;
+	while (ft_isspace(s[*i]) || s[*i] == '+' || s[*i] == '-')
+	{
+		*i = *i + 1;
+		if (s[*i] == '-')
+			n *= -1;
+	}
+	if (bolea == 1)
+		stru->sign *= n;
+	else if (bolea == 2)
+		stru->exp *= n;
+	return (n);
+}
+
 t_stru		*fill_stru(int *i, t_stru *stru, int sign, char *s)
 {
 	int	bol;
+	int	mult;
 		//const void *content, size_t content_size, t_list **plst
 		//ft_lstaddend(s[*i]);
 		ft_bzero(stru, sizeof(t_stru));
 		stru->sign = sign;
 		bol = 0;
-		while (s[*i] != '\0' && s[*i] != '-' && s[*i] != '+' && s[*i] != '=')
+		mult = 0;
+		while (s[*i] != '\0' && ((s[*i] != '-' && s[*i] != '+') || mult == 1) && s[*i] != '=')
 		{
-			if (ft_isspace(s[*i]) == 1 && s[*i])
-			{
-				i++;
-				continue;
-			}
+			stru = ft_skip(s, i, stru, 1);
 			if ((ft_isdigit(s[*i])) != 0)
 			{
+				if (mult == 0 && bol == 1)
+					ft_put_error("ERRORORORORORO", 2, -1);
+				if (bol == 0)
+					stru->multi = ft_atoi(s + *i);
+				else
+					stru->multi *= ft_atoi(s + *i);
+				while (s[*i] && (ft_isdigit(s[*i]) != 0))
+					*i = *i + 1;
 				bol = 1;
-				stru->multi = ft_atoi(s + *i);
- 				while (s[*i] && (ft_isdigit(s[*i]) != 0))
-					i++;
-				continue;
+				mult = 0;
 			}
-			if (s[*i] == '*')
+			else if (s[*i] == '*')
 			{
-				i++;
-				continue;
+				*i = *i + 1;
+				mult = 1;
 			}
-			if (s[*i] == 'X')
+			else if (s[*i] == 'X' || s[*i] == 'x')
 			{
+				mult = 0;
+				*i = *i + 1;
 				if (bol != 1 && stru->multi == 0)
 					stru->multi = 1;
 				stru->exp = 1;
-		//		if (s[*i] && s[*i] == '^' && s[*i - 1] == 'X' && ft_isdigit(s[*i + 1]) != 0)
 				if (s[*i] == '^')
 				{
-					i++;
+					*i = *i + 1;
 					stru->exp = ft_atoi(s + *i);
+					stru = ft_skip(s, i, stru, 2);
 					while (s[*i] && ft_isdigit(s[*i]))
-						i++;
+						*i = *i + 1;
 				}
 			}
 		}
+		if (mult == 1)
+			ft_put_error("* =", 2, -1);
 		return (stru);
 }
