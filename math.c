@@ -44,7 +44,7 @@ t_list		*sort_list(t_list *list)
 	}
 	return (ptr);
 }
-
+/*
 t_list		*add_list(t_list *list)
 {
 	t_list		*ptr;
@@ -72,4 +72,4 @@ t_list		*add_list(t_list *list)
 		ptr = ptr->next;
 
 	}
-}
+}*/
