@@ -6,7 +6,7 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/03 17:22:57 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/04 16:10:50 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/04 14:18:20 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,6 @@ t_stru		*fill_stru(int *i, t_stru *stru, char *s)
 				stru->multi *= ft_atof(s, i);
 			else
 				ft_put_error("error : nbr_1    nbr_2 (NO MULT SIGN)", 2, -1);
-//			while (s[*i] && (ft_isdigit(s[*i]) != 0))
-//				*i = *i + 1;
 			bol = 1;
 			mult = 0;
 		}

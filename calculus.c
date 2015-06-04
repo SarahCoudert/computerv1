@@ -14,18 +14,28 @@
 
 void		resolve(double a, double b, double c)
 {
-	double		delta;
+	int			delta;
 	int			i;
 
 	delta = b * b - 4 * a * c;
 	i = 0;
+	ft_putnbr(delta);
+	ft_putendl("");
+	ft_putnbr(a);
+	ft_putendl("");
+	ft_putnbr(b);
+	ft_putendl("");
+	ft_putnbr(c);
+	ft_putendl("");
 	if (delta < 0 && (i = 1))
 		delta *= -1;
 	if (delta == 0)
 	{
-		ft_putstr("\ndelta == 0\n\tonly one solution: X = ");
+		ft_putstr("\ndelta == 0\n\tonly one solution: \n\t\tX = ");
 		ft_putnbr((-b) / (2 * a));
-		ft_putendl("");
+		ft_putstr("\n==> (X - ");
+		ft_putnbr((-b) / (2 * a));
+		ft_putstr(")^2 = 0");
 	}
 	else
 	{
@@ -34,20 +44,21 @@ void		resolve(double a, double b, double c)
 		{
 			ft_putnbr((-b) / (2 * a));
 			ft_putstr(" + i * ");
-			ft_putnbr(square_root(delta) / (2 * a));
+			ft_putnbr((int)square_root(delta) / (2 * a));
 		}
 		else
-			ft_putnbr((-b) + square_root(delta) / (2 * a));
+			ft_putnbr((-b) + (int)square_root(delta) / (2 * a));
 		ft_putstr("\n\t\tX_2 = ");
 		if (i == 1)
 		{
 			ft_putnbr((-b) / (2 * a));
 			ft_putstr(" - i * ");
-			ft_putnbr(square_root(delta) / (2 * a));
+			ft_putnbr((int)square_root(delta) / (2 * a));
 		}
 		else
-			ft_putnbr((-b) - square_root(delta) / (2 * a));
+			ft_putnbr((-b) - (int)square_root(delta) / (2 * a));
 	}
+		ft_putendl("");
 }
 
 void		solv(t_list *list)
@@ -68,8 +79,9 @@ void		solv(t_list *list)
 		b = STRU->multi * STRU->sign;
 		list = list->next;
 	}
-	if ((c = 0) || (list != NULL && STRU->exp == 1))
+	if ((c = 0) || (list != NULL && STRU->exp == 0))
 	{
+		ft_putendl("a");
 		c = STRU->multi * STRU->sign;
 		list = list->next;
 	}

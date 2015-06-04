@@ -43,6 +43,8 @@ void		read_list(t_list *list, char *s)
 	printf ("\n\n");
 }
 
+void	solv(t_list *list);
+
 int		main(int ac, char **av)
 {
 	t_list	*list;
@@ -55,9 +57,10 @@ int		main(int ac, char **av)
 		read_list(list, "parse");
 		sort_list(list);
 		read_list(list, "sort");
-		list = add_list(list);
+		//list = add_list(list);
 		read_list(list, "add"); // on free la list de parsinf dans math.c -> add
-		ft_lstdel(&list, del); // supprime la nouvelle chaine
+		solv(list);
+		//ft_lstdel(&list, del); // supprime la nouvelle chaine
 	}
 	else
 		ft_put_error("Wrong number of arguments", 1, -1);
