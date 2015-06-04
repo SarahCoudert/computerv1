@@ -6,18 +6,11 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/02 15:03:30 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/02 16:49:23 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/03 20:14:41 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "libft.h"
-
-int			ft_isdigit(char c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
-}
+#include "libft.h"
 
 double		ft_atof(char *str, int *i)
 {
@@ -46,22 +39,11 @@ double		ft_atof(char *str, int *i)
 		while (ft_isdigit(str[t + *i]) && t <= 7)
 			t++;
 		while (str[--t + *i] != ',' && str[t + *i] != '.')
+		{
 			vir = (vir / 10) + str[t + *i] - '0';
+			*i = *i + 1;
+		}
 		vir = vir / 10;
 	}
 	return (sign * (nbr + vir));
-}
-
-#include <stdio.h>
-
-int		main(int argc, char **argv)
-{
-	int		i;
-
-	i = 0;
-	if (argc != 1)
-	{
-		printf("%s\n%f\n", argv[1], ft_atof(argv[1], &i));
-	}
-	return (0);
 }

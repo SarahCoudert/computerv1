@@ -6,7 +6,7 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/03 17:22:57 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/03 18:58:50 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/04 13:57:36 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 #include "computer.h"
 
 int			ft_skip(char *s, int *i, int b);
-void		parse(char *s);
+t_list		*parse(char *s);
 t_stru		*fill_stru(int *i, t_stru *stru, char *s);
 
-void		parse(char *s)
+t_list		*parse(char *s)
 {
 	int		i;
 	t_list	*list;
@@ -38,18 +38,21 @@ void		parse(char *s)
 	stru = (t_stru*)ft_strnew(sizeof(t_stru));
 	i = 0;
 	n = 1;
+	list = NULL;
 	default_n = 1;
 	while (s[i] != '\0')
 	{
-		n *= ft_skip(s, &i, 1);
-		stru = fill_stru(&i, stru, n, s);
-		ft_lstaddend((void*)stru, sizeof(t_stru), &list);
+		ft_bzero(stru, sizeof(t_stru));
+		ft_putendl(s + i);
+		stru->sign = ft_skip(s, &i, 1);
+		stru = fill_stru(&i, stru, s);
 		ft_putnbr(stru->sign);
 		ft_putendl("");
 		ft_putnbr(stru->multi);
 		ft_putendl("");
 		ft_putnbr(stru->exp);
 		ft_putendl("\n");
+		ft_lstaddend((void*)stru, sizeof(t_stru), &list);
 		if (s[i] == '=' && ++i)
 		{
 			if (default_n == -1)
@@ -59,6 +62,7 @@ void		parse(char *s)
 		n = default_n;
 	}
 	free(stru);
+	return (list);
 }
 
 int			ft_skip(char *s, int *i, int b)
@@ -88,8 +92,6 @@ t_stru		*fill_stru(int *i, t_stru *stru, char *s)
 	int		bol;
 	int		mult;
 
-
-	ft_bzero(stru, sizeof(t_stru));
 	bol = 0;
 	mult = 1;
 	while (s[*i] != '\0' && ((s[*i] != '-' && s[*i] != '+') || mult == 1) && s[*i] != '=')
@@ -98,13 +100,13 @@ t_stru		*fill_stru(int *i, t_stru *stru, char *s)
 		if ((ft_isdigit(s[*i])) != 0)
 		{
 			if (bol == 0)
-				stru->multi = ft_atoi(s + *i);
+				stru->multi = ft_atof(s, i);
 			else if (mult == 1)
-				stru->multi *= ft_atoi(s + *i);
+				stru->multi *= ft_atof(s, i);
 			else
 				ft_put_error("error : nbr_1    nbr_2 (NO MULT SIGN)", 2, -1);
-			while (s[*i] && (ft_isdigit(s[*i]) != 0))
-				*i = *i + 1;
+//			while (s[*i] && (ft_isdigit(s[*i]) != 0))
+//				*i = *i + 1;
 			bol = 1;
 			mult = 0;
 		}
