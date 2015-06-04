@@ -6,7 +6,7 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/03 17:22:57 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/04 18:59:09 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/04 22:14:01 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ int			ft_skip(char *s, int *i, int b);
 t_list		*parse(char *s);
 t_stru		*fill_stru(int *i, t_stru *stru, char *s);
 
-void		ft_putdouble(double nbr);
-
 t_list		*parse(char *s)
 {
 	int		i;
@@ -50,12 +48,7 @@ t_list		*parse(char *s)
 		ft_putendl(s + i);
 		stru->sign *= ft_skip(s, &i, 1);
 		stru = fill_stru(&i, stru, s);
-		ft_putnbr(stru->sign);
-		ft_putendl("");
-		ft_putdouble(stru->multi);
-		ft_putendl("");
-		ft_putnbr(stru->exp);
-		ft_putendl("\n");
+		printf("sign: %d\nmulti: %f\nexp: %d\n", stru->sign, stru->multi, stru->exp);
 		ft_lstaddend((void*)stru, sizeof(t_stru), &list);
 		if (s[i] == '=' && ++i)
 		{
@@ -107,11 +100,13 @@ t_stru		*fill_stru(int *i, t_stru *stru, char *s)
 		if ((ft_isdigit(s[*i])) != 0)
 		{
 			if (bol == 0)
-				stru->multi = ft_atof(s, i);
+				stru->multi = atof(s + *i);
 			else if (mult == 1)
-				stru->multi *= ft_atof(s, i);
+				stru->multi *= atof(s + *i);
 			else
 				ft_put_error("error : nbr_1    nbr_2 (NO MULT SIGN)", 2, -1);
+			while (ft_isdigit(s[*i]) != 0 || s[*i] == '.')
+				*i = *i + 1;
 			bol = 1;
 			mult = 0;
 		}
@@ -122,17 +117,18 @@ t_stru		*fill_stru(int *i, t_stru *stru, char *s)
 			*i = *i + 1;
 			if (bol != 1 && stru->multi == 0)
 				stru->multi = 1;
-			stru->exp = 1;
 			ft_skip(s, i, 0);
 			if (s[*i] == '^')
 			{
 				*i = *i + 1;
-				stru->exp = ft_skip(s, i, 1) * ft_atoi(s + *i);
+				stru->exp += ft_skip(s, i, 1) * ft_atoi(s + *i);
 				if (ft_isdigit(s[*i]) != 1)
-					ft_put_error("invalid char after ^", 2, -1);
+					ft_put_error("invalid char around ^", 2, -1);
 				while (s[*i] && ft_isdigit(s[*i]))
 					*i = *i + 1;
 			}
+			else
+				stru->exp += 1;
 			mult = 0;
 		}
 		else

@@ -6,14 +6,24 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/04 14:32:06 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/04 15:58:30 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/04 21:41:21 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "computer.h"
 #include <stdio.h>
 
-void		resolve(double a, double b, double c)
+void		resolve_other(double b, double c)
+{
+	if (b != 0)
+		printf("Lineare equation :\n\tX = %f / %f\n==> (X - (%f)) = 0", -c, b, c);
+	else if (c != 0)
+		printf("Pretty funny but even with irreal number, it is unpossible to solve this equation\n");
+	else
+		printf("0 = 0\nX is not in the equation so it could be anything\n(tous les nombres reels sont solutions)\n");
+}
+
+void		resolve_square(double a, double b, double c)
 {
 	int			delta;
 	int			i;
@@ -35,8 +45,8 @@ void		resolve(double a, double b, double c)
 	else
 	{
 		ft_putstr("\n\n\033[32m==> △  different from 0 \n↪ Two solutions: \n");
-		printf("    -(%f) ± √(%d)\n_________________________\n     (2 * %f)\n\n"
-			, b, delta, a);
+		printf("    %f ± √(%d)\n_________________________\n     (2 * %f)\n\n"
+			, -b, delta, a);
 		ft_putstr("\tX_1 = ");
 		if (i == 1)
 		{
@@ -56,7 +66,7 @@ void		resolve(double a, double b, double c)
 		else
 			ft_putnbr((-b) - (int)square_root(delta) / (2 * a));
 	}
-		ft_putendl("");
+	ft_putendl("");
 }
 
 void		solv(t_list *list)
@@ -83,8 +93,11 @@ void		solv(t_list *list)
 		list = list->next;
 	}
 	if (list != NULL && STRU->exp < 0)
-		ft_put_error("\033[31mExposant smaller than 2\nUnable to resolve", 2, -1);
-	resolve(a, b, c);
+		ft_put_error("\033[31mExposant smaller than 0\nUnable to solve", 2, -1);
+	if (a != 0)
+		resolve_square(a, b, c);
+	else
+		resolve_other(b, c);
 }
 
 void		form_reduit(t_list *list)

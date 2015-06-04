@@ -20,23 +20,22 @@ double		square_root(double n)
 t_list		*sort_list(t_list *list)
 {
 	t_list	*ptr;
-	int		temp;
+	t_stru	temp;
 
-	temp = 0;
 	ptr = list;
 	while (list->next)
 	{
-		if ((int)(STRU->exp < (int)STRU_NEXT->exp))
+		if (STRU->exp < STRU_NEXT->exp)
 		{
- 			temp = (int)(STRU)->exp;
-			(STRU)->exp = (int)STRU_NEXT->exp;
-			STRU_NEXT->exp = temp;
-			temp = (int)STRU->multi;
-			(STRU)->multi = (int)STRU_NEXT->multi;
-			STRU_NEXT->multi = temp;
-			temp = (int)STRU->sign;
-			STRU->sign = (int)STRU_NEXT->sign;
-			STRU_NEXT->sign = temp;
+ 			temp.exp = (STRU)->exp;
+			(STRU)->exp = STRU_NEXT->exp;
+			STRU_NEXT->exp = temp.exp;
+			temp.multi = STRU->multi;
+			(STRU)->multi = STRU_NEXT->multi;
+			STRU_NEXT->multi = temp.multi;
+			temp.sign = STRU->sign;
+			STRU->sign = STRU_NEXT->sign;
+			STRU_NEXT->sign = temp.sign;
 			list = ptr;
 			continue ;
 		}
@@ -45,8 +44,6 @@ t_list		*sort_list(t_list *list)
 	}
 	return (ptr);
 }
-
-#include <stdio.h>
 
 t_list		*add_list(t_list *list)
 {
@@ -66,7 +63,7 @@ t_list		*add_list(t_list *list)
 			stru->multi += STRU_NEXT->multi * STRU_NEXT->sign;
 			list = list->next;
 		}
-		if (stru->multi != 0)
+		if (stru->multi != 0.0)
 			ft_lstaddend(stru, sizeof(t_stru), &ret);
 		ft_bzero(stru, sizeof(t_stru));
 		list = list->next;

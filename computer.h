@@ -2,9 +2,10 @@
 # define COMPUTER_H
 
 #include "libft/includes/libft.h"
-
+#include <stdio.h>
 #define STRU		((t_stru*)(list->content))
 #define STRU_NEXT	((t_stru*)(list->next->content))
+
 
 typedef struct		s_stru
 {
