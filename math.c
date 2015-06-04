@@ -61,12 +61,13 @@ t_list		*add_list(t_list *list)
 		stru->multi = STRU->multi * STRU->sign;
 		stru->exp = STRU->exp;
 		stru->sign = 1;
-		while (list && list->next && STRU->exp == STRU_NEXT->exp)
+		while (list->next && STRU->exp == STRU_NEXT->exp)
 		{
-			stru->multi += STRU_NEXT->exp * STRU_NEXT->sign;
+			stru->multi += STRU_NEXT->multi * STRU_NEXT->sign;
 			list = list->next;
 		}
-		ft_lstaddend(stru, sizeof(t_stru), &ret);
+		if (stru->multi != 0)
+			ft_lstaddend(stru, sizeof(t_stru), &ret);
 		ft_bzero(stru, sizeof(t_stru));
 		list = list->next;
 	}

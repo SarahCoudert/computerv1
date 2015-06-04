@@ -6,7 +6,7 @@
 /*   By: scoudert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/01 18:43:41 by scoudert          #+#    #+#             */
-/*   Updated: 2015/06/04 19:12:18 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/04 19:16:30 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		main(int ac, char **av)
 		read_list(list, "sort");
 		ptr = add_list(list);
 		read_list(ptr, "add");
-		form_reduit(list);
+		form_reduit(ptr);
 		solv(ptr);
 		ft_lstdel(&list, del);
 		ft_lstdel(&ptr, del);
