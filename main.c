@@ -6,7 +6,7 @@
 /*   By: scoudert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/01 18:43:41 by scoudert          #+#    #+#             */
-/*   Updated: 2015/06/04 17:38:11 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/04 19:12:18 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,12 @@ int		main(int ac, char **av)
 		read_list(list, "sort");
 		ptr = add_list(list);
 		read_list(ptr, "add");
+		form_reduit(list);
 		solv(ptr);
 		ft_lstdel(&list, del);
 		ft_lstdel(&ptr, del);
 	}
 	else
-		ft_put_error("Wrong number of arguments", 1, -1);
+		ft_put_error("\033[31mWrong number of arguments", 1, -1);
 	return (0);
 }

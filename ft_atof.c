@@ -6,7 +6,7 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/02 15:03:30 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/04 19:02:55 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/04 19:12:52 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ void	ft_putdouble(double nbr)
 	if (nbr > 10)
 	while (nbr >= 1)
 	{
-		ft_putchar(nbr + '0')
-		v = v / 10;
+		ft_putchar(nbr + '0');
 		nbr = nbr / 10;
 	}
 }

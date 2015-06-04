@@ -20,5 +20,6 @@ int				ft_skip(char *s, int *i, int b);
 t_list			*sort_list(t_list *list);
 double			square_root(double n);
 t_list			*add_list(t_list *list);
+void			form_reduit(t_list *list);
 
 #endif
