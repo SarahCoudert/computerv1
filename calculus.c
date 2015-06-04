@@ -79,7 +79,6 @@ void		solv(t_list *list)
 	}
 	if ((c = 0) || (list != NULL && STRU->exp == 0))
 	{
-		ft_putendl("a");
 		c = STRU->multi * STRU->sign;
 		list = list->next;
 	}
@@ -103,6 +102,6 @@ void		form_reduit(t_list *list)
 			printf("-");
 		list = list->next;
 	}
-	printf("\n");
+	printf(" = 0\n");
 	list = ptr;
 }
