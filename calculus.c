@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "computer.h"
+#include <stdio.h>
 
 void		resolve(double a, double b, double c)
 {
@@ -19,27 +20,24 @@ void		resolve(double a, double b, double c)
 
 	delta = b * b - 4 * a * c;
 	i = 0;
+	ft_putstr("\n\033[32m△ = ");
 	ft_putnbr(delta);
-	ft_putendl("");
-	ft_putnbr(a);
-	ft_putendl("");
-	ft_putnbr(b);
-	ft_putendl("");
-	ft_putnbr(c);
-	ft_putendl("");
 	if (delta < 0 && (i = 1))
 		delta *= -1;
 	if (delta == 0)
 	{
-		ft_putstr("\ndelta == 0\n\tonly one solution: \n\t\tX = ");
+		ft_putstr("\n\n\033[32m==> △  egal to 0\n↪ Only one solution: \n\t\tX = ");
 		ft_putnbr((-b) / (2 * a));
-		ft_putstr("\n==> (X - ");
+		ft_putstr("\n⇨ (X - ");
 		ft_putnbr((-b) / (2 * a));
-		ft_putstr(")^2 = 0");
+		ft_putstr(")² = 0");
 	}
 	else
 	{
-		ft_putstr("\ndelta != 0 \n\ttwo solutions: \n\t\tX_1 = ");
+		ft_putstr("\n\n\033[32m==> △  different from 0 \n↪ Two solutions: \n");
+		printf("    -(%f) ± √(%d)\n_________________________\n     (2 * %f)\n\n"
+			, b, delta, a);
+		ft_putstr("\tX_1 = ");
 		if (i == 1)
 		{
 			ft_putnbr((-b) / (2 * a));
@@ -48,7 +46,7 @@ void		resolve(double a, double b, double c)
 		}
 		else
 			ft_putnbr((-b) + (int)square_root(delta) / (2 * a));
-		ft_putstr("\n\t\tX_2 = ");
+		ft_putstr("\n\tX_2 = ");
 		if (i == 1)
 		{
 			ft_putnbr((-b) / (2 * a));
@@ -68,7 +66,7 @@ void		solv(t_list *list)
 	double		c;
 
 	if (STRU->exp > 2)
-		ft_put_error("exposant bigger than 2\nunable to resolve", 2, -1);
+		ft_put_error("\033[31mExposant bigger than 2\nUnable to resolve", 2, -1);
 	if ((a = 0) || STRU->exp == 2)
 	{
 		a = STRU->multi * STRU->sign;
@@ -86,6 +84,25 @@ void		solv(t_list *list)
 		list = list->next;
 	}
 	if (list != NULL && STRU->exp < 0)
-		ft_put_error("exposant smaller than 2\nunable to resolve", 2, -1);
+		ft_put_error("\033[31mExposant smaller than 2\nUnable to resolve", 2, -1);
 	resolve(a, b, c);
+}
+
+void		form_reduit(t_list *list)
+{
+	t_list *ptr;
+
+	ptr = list;
+	ft_putstr("Forme reduite :");
+	while (list)
+	{
+		printf(" %f * X^%d ", STRU->multi, STRU->exp);
+		if (list->next && STRU_NEXT->multi * STRU_NEXT->sign >= 0)
+			printf("+");
+		else if (list->next && STRU_NEXT->multi * STRU_NEXT->sign < 0)
+			printf("-");
+		list = list->next;
+	}
+	printf("\n");
+	list = ptr;
 }

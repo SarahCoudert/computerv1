@@ -56,13 +56,14 @@ int		main(int ac, char **av)
 		list = parse(av[1]);
 read_list(list, "parse");
 		sort_list(list);
-		read_list(list, "sort");
+		//read_list(list, "sort");
 		//list = add_list(list);
 		read_list(list, "add"); // on free la list de parsinf dans math.c -> add
+		form_reduit(list);
 		solv(list);
 		//ft_lstdel(&list, del); // supprime la nouvelle chaine
 	}
 	else
-		ft_put_error("Wrong number of arguments", 1, -1);
+		ft_put_error("\033[31mWrong number of arguments", 1, -1);
 	return (0);
 }
