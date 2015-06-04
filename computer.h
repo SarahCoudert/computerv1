@@ -19,5 +19,6 @@ t_stru			*fill_stru(int *i, t_stru *stru, char *s);
 int				ft_skip(char *s, int *i, int b);
 t_list			*sort_list(t_list *list);
 double			square_root(double n);
+t_list			*add_list(t_list *list);
 
 #endif

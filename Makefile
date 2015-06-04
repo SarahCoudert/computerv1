@@ -28,12 +28,12 @@ $(NAME): $(SRC)
 
 clean:
 	@make -C libft/ clean
-	@echo "\033[31mDelete all \".o\" in ft_ls\033[0m"
+	@echo "\033[31mDelete all \".o\" in $(NAME)\033[0m"
 	@$(RM) $(OBJ)
 
 fclean: clean
 	@make -C libft/ fclean
-	@echo "\033[31mDelete ft_ls executable\033[0m"
+	@echo "\033[31mDelete $(NAME) executable\033[0m"
 	@$(RM) $(NAME)
 
 re: fclean all

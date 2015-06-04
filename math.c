@@ -37,6 +37,7 @@ t_list		*sort_list(t_list *list)
 			temp = (int)STRU->sign;
 			STRU->sign = (int)STRU_NEXT->sign;
 			STRU_NEXT->sign = temp;
+			list = ptr;
 			continue ;
 		}
 		else
@@ -44,32 +45,33 @@ t_list		*sort_list(t_list *list)
 	}
 	return (ptr);
 }
-/*
+
 t_list		*add_list(t_list *list)
 {
 	t_list		*ptr;
 	t_list		*ret;
 	t_stru		*stru;
+	int			exp;
 
+	exp = 0;
 	stru = NULL;
 	ret = NULL;
 	ptr = list;
-	while (ptr->next)
+	while (list)
 	{
-		if (((t_stru*)(ptr->content)->exp) == (((t_stru*)(ptr->next->content)->exp)))
+		ft_strnew(sizeof(t_stru));
+		while (list && STRU->exp == STRU_NEXT->exp)
 		{
-			stru = (t_stru*)ft_strnew(sizeof(t_stru));
-			ft_bzero(stru);
-			stru->exp = ((t_stru*)(ptr->content)->exp) + (((t_stru*)(ptr->next->content)->exp));
-			stru->multi = ((t_stru*)(ptr->content)->multi) * (((t_stru*)(ptr->next->content)->multi));
-			stru->sign = ((t_stru*)(ptr->content)->sign) * (((t_stru*)(ptr->next->content)->sign));
-			ft_lstaddend(stru, sizeof(t_stru), &ret);
+			stru->sign = 1;
+			stru->exp = STRU->exp;
+			stru->multi = (STRU_NEXT-> multi * STRU_NEXT->sign) +
+			((STRU->multi) * (STRU->sign));
+			list = list->next;
 		}
-		else
-		{
-			
-		}
-		ptr = ptr->next;
-
+			ft_lstaddend(stru, sizeof(stru), &ret);
+			if (list)
+				list = list->next;
 	}
-}*/
+	ft_lstdel(&ptr, del);
+	return (ret);
+}
