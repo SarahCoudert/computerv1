@@ -46,32 +46,31 @@ t_list		*sort_list(t_list *list)
 	return (ptr);
 }
 
+#include <stdio.h>
+
 t_list		*add_list(t_list *list)
 {
-	t_list		*ptr;
 	t_list		*ret;
 	t_stru		*stru;
 	int			exp;
 
-	exp = 0;
-	stru = NULL;
 	ret = NULL;
-	ptr = list;
+	stru = (t_stru*)ft_strnew(sizeof(t_stru));
 	while (list)
 	{
-		ft_strnew(sizeof(t_stru));
-		while (list && STRU->exp == STRU_NEXT->exp)
+		stru->multi = STRU->multi * STRU->sign;
+		stru->exp = STRU->exp;
+		stru->sign = 1;
+		while (list && list->next && STRU->exp == STRU_NEXT->exp)
 		{
-			stru->sign = 1;
-			stru->exp = STRU->exp;
-			stru->multi = (STRU_NEXT-> multi * STRU_NEXT->sign) +
-			((STRU->multi) * (STRU->sign));
+			stru->multi += STRU_NEXT->exp * STRU_NEXT->sign;
 			list = list->next;
 		}
-			ft_lstaddend(stru, sizeof(stru), &ret);
-			if (list)
-				list = list->next;
+		ft_lstaddend(stru, sizeof(t_stru), &ret);
+		ft_bzero(stru, sizeof(t_stru));
+		list = list->next;
 	}
-	ft_lstdel(&ptr, del);
+	if (ret == NULL)
+		ft_lstaddend(stru, sizeof(t_stru), &ret);
 	return (ret);
 }

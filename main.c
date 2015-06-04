@@ -6,7 +6,7 @@
 /*   By: scoudert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/01 18:43:41 by scoudert          #+#    #+#             */
-/*   Updated: 2015/06/04 14:01:02 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/04 17:38:11 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,20 @@ void	solv(t_list *list);
 int		main(int ac, char **av)
 {
 	t_list	*list;
-
+	t_list	*ptr;
 	list = NULL;
 	(void)av;
 	if (ac == 2)
 	{
 		list = parse(av[1]);
-read_list(list, "parse");
+		read_list(list, "parse");
 		sort_list(list);
 		read_list(list, "sort");
-		//list = add_list(list);
-		read_list(list, "add"); // on free la list de parsinf dans math.c -> add
-		solv(list);
-		//ft_lstdel(&list, del); // supprime la nouvelle chaine
+		ptr = add_list(list);
+		read_list(ptr, "add");
+		solv(ptr);
+		ft_lstdel(&list, del);
+		ft_lstdel(&ptr, del);
 	}
 	else
 		ft_put_error("Wrong number of arguments", 1, -1);

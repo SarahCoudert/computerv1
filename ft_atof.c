@@ -6,11 +6,11 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/02 15:03:30 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/03 20:14:41 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/04 19:02:55 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "computer.h"
 
 double		ft_atof(char *str, int *i)
 {
@@ -35,15 +35,50 @@ double		ft_atof(char *str, int *i)
 	if (str[*i] == '.' || str[*i] == ',')
 	{
 		*i = *i + 1;
-		t = 0;
-		while (ft_isdigit(str[t + *i]) && t <= 7)
+		t = *i;
+		while (ft_isdigit(str[t + *i]) && t <= *i + 7)
 			t++;
-		while (str[--t + *i] != ',' && str[t + *i] != '.')
+		while (str[--t] != ',' && str[t] != '.')
 		{
-			vir = (vir / 10) + str[t + *i] - '0';
+			vir = (vir / 10) + str[t] - '0';
 			*i = *i + 1;
 		}
 		vir = vir / 10;
+		*i = *i + 1;
 	}
 	return (sign * (nbr + vir));
 }
+
+void	ft_putdouble(double nbr)
+{
+	int		t;
+
+	if (nbr < 0)
+	{
+		ft_putchar('-');
+		nbr = nbr * -1;
+	}
+	if (nbr > 10)
+	while (nbr >= 1)
+	{
+		ft_putchar(nbr + '0')
+		v = v / 10;
+		nbr = nbr / 10;
+	}
+}
+/*
+void	ft_putdouble(double nbr)
+{
+	int		t;
+	int		v;
+
+	v = 1;
+	while (nbr / v >= 1)
+		v = v * 10;
+	while (nbr >= 1)
+	{
+		ft_putchar(nbr / v);
+		v = v / 10;
+		nbr = nbr / 10;
+	}
+}*/

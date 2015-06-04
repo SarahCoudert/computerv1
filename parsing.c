@@ -6,7 +6,7 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/03 17:22:57 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/04 14:18:20 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/04 18:59:09 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,6 @@
  ** "8 * X^0 - 6 * X^1 + 0 * X^2 - 5.6 * X^3 = 3 * X^0"
  ** troisieme degres (pas a gerer)
  ** useful char : △ 
-⁰
-ⁱ
-²
-³
-⁴
-⁵
-⁶
-⁷
-⁸
-⁹
  */
 
 #include "computer.h"
@@ -37,6 +27,8 @@
 int			ft_skip(char *s, int *i, int b);
 t_list		*parse(char *s);
 t_stru		*fill_stru(int *i, t_stru *stru, char *s);
+
+void		ft_putdouble(double nbr);
 
 t_list		*parse(char *s)
 {
@@ -60,7 +52,7 @@ t_list		*parse(char *s)
 		stru = fill_stru(&i, stru, s);
 		ft_putnbr(stru->sign);
 		ft_putendl("");
-		ft_putnbr(stru->multi);
+		ft_putdouble(stru->multi);
 		ft_putendl("");
 		ft_putnbr(stru->exp);
 		ft_putendl("\n");
