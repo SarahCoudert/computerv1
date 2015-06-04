@@ -6,7 +6,7 @@
 /*   By: scoudert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/01 18:43:41 by scoudert          #+#    #+#             */
-/*   Updated: 2015/06/04 14:01:02 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/04 16:18:53 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ int		main(int ac, char **av)
 	if (ac == 2)
 	{
 		list = parse(av[1]);
-		sort_list(list);
+//		sort_list(list);
 //		add_list(list);
+		ft_lstdel(&list, del);
 	}
 	else
 		ft_put_error("Wrong number of arguments", 1, -1);
