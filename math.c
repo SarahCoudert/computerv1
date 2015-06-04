@@ -44,3 +44,32 @@ t_list		*sort_list(t_list *list)
 	}
 	return (ptr);
 }
+
+t_list		*add_list(t_list *list)
+{
+	t_list		*ptr;
+	t_list		*ret;
+	t_stru		*stru;
+
+	stru = NULL;
+	ret = NULL;
+	ptr = list;
+	while (ptr->next)
+	{
+		if (((t_stru*)(ptr->content)->exp) == (((t_stru*)(ptr->next->content)->exp)))
+		{
+			stru = (t_stru*)ft_strnew(sizeof(t_stru));
+			ft_bzero(stru);
+			stru->exp = ((t_stru*)(ptr->content)->exp) + (((t_stru*)(ptr->next->content)->exp));
+			stru->multi = ((t_stru*)(ptr->content)->multi) * (((t_stru*)(ptr->next->content)->multi));
+			stru->sign = ((t_stru*)(ptr->content)->sign) * (((t_stru*)(ptr->next->content)->sign));
+			ft_lstaddend(stru, sizeof(t_stru), &ret);
+		}
+		else
+		{
+			
+		}
+		ptr = ptr->next;
+
+	}
+}

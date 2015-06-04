@@ -6,13 +6,12 @@
 /*   By: scoudert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/01 18:43:41 by scoudert          #+#    #+#             */
-/*   Updated: 2015/06/03 19:45:15 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/04 14:01:02 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "computer.h"
 
-void		test_square();
 /*
 ** Input examples :
 ** "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"
@@ -33,6 +32,7 @@ int		main(int ac, char **av)
 	{
 		list = parse(av[1]);
 		sort_list(list);
+//		add_list(list);
 	}
 	else
 		ft_put_error("Wrong number of arguments", 1, -1);

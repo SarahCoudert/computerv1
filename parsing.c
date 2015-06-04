@@ -6,7 +6,7 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/03 17:22:57 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/04 13:57:36 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/04 14:00:45 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,16 @@ t_list		*parse(char *s)
 	int		i;
 	t_list	*list;
 	t_stru*	stru;
-	int		n;
 	int		default_n;
 
 	stru = (t_stru*)ft_strnew(sizeof(t_stru));
 	i = 0;
-	n = 1;
 	list = NULL;
 	default_n = 1;
 	while (s[i] != '\0')
 	{
-		ft_bzero(stru, sizeof(t_stru));
 		ft_putendl(s + i);
-		stru->sign = ft_skip(s, &i, 1);
+		stru->sign *= ft_skip(s, &i, 1);
 		stru = fill_stru(&i, stru, s);
 		ft_putnbr(stru->sign);
 		ft_putendl("");
@@ -59,7 +56,8 @@ t_list		*parse(char *s)
 				ft_put_error("WARNING : Two '=' signs in string", 1, -1);
 			default_n = -1;
 		}
-		n = default_n;
+		ft_bzero(stru, sizeof(t_stru));
+		stru->sign = default_n;
 	}
 	free(stru);
 	return (list);
