@@ -6,7 +6,7 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/03 17:22:57 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/04 14:00:45 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/04 14:18:20 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_list		*parse(char *s)
 	i = 0;
 	list = NULL;
 	default_n = 1;
+	stru->sign = 1;
 	while (s[i] != '\0')
 	{
 		ft_putendl(s + i);
@@ -120,16 +121,25 @@ t_stru		*fill_stru(int *i, t_stru *stru, char *s)
 			if (s[*i] == '^')
 			{
 				*i = *i + 1;
-				mult = ft_skip(s, i, 1);
-				stru->exp = ft_atoi(s + *i) * mult;
+				stru->exp = ft_skip(s, i, 1) * ft_atoi(s + *i);
+				if (ft_isdigit(s[*i]) != 1)
+					ft_put_error("invalid char after ^", 2, -1);
 				while (s[*i] && ft_isdigit(s[*i]))
 					*i = *i + 1;
 			}
-			ft_skip(s, i, 0);
 			mult = 0;
 		}
+		else
+		{
+			ft_putendl("invalid char :");
+			ft_put_error(s + *i, 2, -1);
+		}
+		ft_skip(s, i, 0);
 	}
 	if (mult == 1)
-		ft_put_error("* =", 2, -1);
+	{
+		ft_putendl("invalid format around :");
+		ft_put_error(s + *i, 2, -1);
+	}
 	return (stru);
 }
