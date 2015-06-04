@@ -54,7 +54,7 @@ int		main(int ac, char **av)
 	if (ac == 2)
 	{
 		list = parse(av[1]);
-		read_list(list, "parse");
+read_list(list, "parse");
 		sort_list(list);
 		read_list(list, "sort");
 		//list = add_list(list);

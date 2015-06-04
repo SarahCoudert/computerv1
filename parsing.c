@@ -19,6 +19,17 @@
  ** premier degres
  ** "8 * X^0 - 6 * X^1 + 0 * X^2 - 5.6 * X^3 = 3 * X^0"
  ** troisieme degres (pas a gerer)
+ ** useful char : △ 
+⁰
+ⁱ
+²
+³
+⁴
+⁵
+⁶
+⁷
+⁸
+⁹
  */
 
 #include "computer.h"
@@ -39,6 +50,9 @@ t_list		*parse(char *s)
 	list = NULL;
 	default_n = 1;
 	stru->sign = 1;
+	ft_skip(s, &i, 0);
+	s = s + i;
+	i = 0;
 	while (s[i] != '\0')
 	{
 		ft_putendl(s + i);
@@ -60,6 +74,8 @@ t_list		*parse(char *s)
 		ft_bzero(stru, sizeof(t_stru));
 		stru->sign = default_n;
 	}
+	if (i == 0)
+		ft_put_error("empty line", 2, -1);
 	free(stru);
 	return (list);
 }
