@@ -6,19 +6,19 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/03 17:22:57 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/05 13:12:22 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/05 13:34:03 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "computer.h"
 
-static void		sub_parse(char *s, int *i, t_stru *stru, t_list *list)
+static void		sub_parse(char *s, int *i, t_stru *stru, t_list **list)
 {
 	printf("%s\n", s + *i);
 	stru->sign *= ft_skip(s, i, 1);
 	stru = fill_stru(i, stru, s);
 	printf("sign: %d\nmult: %f\nexp: %d\n", stru->sign, stru->multi, stru->exp);
-	ft_lstaddend((void*)stru, sizeof(t_stru), &list);
+	ft_lstaddend((void*)stru, sizeof(t_stru), list);
 	ft_bzero(stru, sizeof(t_stru));
 }
 
@@ -37,7 +37,7 @@ t_list	*parse(char *s)
 	i = 0;
 	while ((stru->sign = default_n) && s[i] != '\0')
 	{
-		sub_parse(s, &i, stru, list);
+		sub_parse(s, &i, stru, &list);
 		if (s[i] == '=' && ++i)
 		{
 			if (default_n == -1)
@@ -73,7 +73,7 @@ int		ft_skip(char *s, int *i, int b)
 	return (n);
 }
 
-static int	fill_multi(int *i, char *s, int *bol, int *mult)
+static double	fill_multi(int *i, char *s, int *bol, int *mult)
 {
 	double		v;
 
