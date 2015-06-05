@@ -15,12 +15,16 @@
 void		resolve_other(double b, double c)
 {
 	if (b != 0)
-		printf("Lineare equation :\n\tX = %g / %g\n\t(X - (%g)) = 0", -c, b, c);
+	{
+		printf("First degree equation resolution :\n\tX = (-c / b)\n\t");
+		printf ("X = (%g / %g)\n\t\033[32m", -c, b);
+		printf("Solution : X = %g\n\033[00m", ((-c) / b));
+		printf("\t(X - (c/b)) = 0\n\t(X - (%g)) = 0\n", -c/b);
+	}
 	else if (c != 0)
 	{
 		printf("Pretty funny but even with irreal number.\n");
 		printf("It is unpossible to solve this equation\n");
-		exit(0);
 	}
 	else
 	{
