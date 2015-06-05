@@ -6,7 +6,7 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/04 14:32:06 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/05 17:22:12 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/05 18:40:16 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void		print_res(double a, double b, double delta)
 	printf("\tX_1 = ");
 }
 
-void		solv(t_list *list, char *s)
+void		solv(t_list *list)
 {
 	double	a;
 	double	b;
@@ -96,7 +96,6 @@ void		solv(t_list *list, char *s)
 		resolve_square(a, b, c);
 	else if (list == NULL || STRU->exp <= 2)
 		resolve_other(b, c);
-	printf(" <===> %s\n", s);
 }
 
 void		form_reduit(t_list *list, int etape)

@@ -6,7 +6,7 @@
 /*   By: scoudert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/01 18:43:41 by scoudert          #+#    #+#             */
-/*   Updated: 2015/06/05 17:19:02 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/05 18:50:37 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,12 @@ int		main(int ac, char **av)
 		form_reduit(list, 0);
 		ptr = add_list(list);
 		form_reduit(ptr, 1);
-		solv(ptr, av[1]);
+		solv(ptr);
+		printf("\033[0m\nis the simplified form of\033[36m\n====>\t%s\033[0m",
+				av[1]);
+		if (!ft_strchr(av[1], '='))
+			printf(" = 0");
+		printf("\n");
 		ft_lstdel(&list, del);
 		ft_lstdel(&ptr, del);
 	}
