@@ -67,11 +67,9 @@ int		main(int ac, char **av)
 	if (ac == 2)
 	{
 		list = parse(av[1]);
-		read_list(list, "parse");
 		sort_list(list);
-		read_list(list, "sort");
+		form_reduit(list, 0);
 		ptr = add_list(list);
-		read_list(ptr, "add");
 		form_reduit(list, 1);
 		solv(ptr);
 		ft_lstdel(&list, del);

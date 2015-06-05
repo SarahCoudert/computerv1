@@ -117,5 +117,8 @@ void		form_reduit(t_list *list, int etape)
 	}
 	printf("\033[0m= 0\n");
 	list = ptr;
-	printf("\033[104mPolynomial degree : %d\033[0m\n", STRU->exp);
+	if (etape == 1)
+		printf("\033[104mPolynomial degree : %d\033[0m\n", STRU->exp);
+	else
+		printf("\n");
 }
