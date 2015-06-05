@@ -6,7 +6,7 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/04 14:32:06 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/05 20:23:22 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/05 20:39:37 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ void		resolve_other(double b, double c)
 		printf("First degree equation resolution :\n\tX = (-c / b)\n\t");
 		printf ("X = (%g / %g)\n\t\033[32m", -c, b);
 		printf("Solution : X = %g\n\033[00m", ((-c) / b));
-		printf("\t(X - (c/b)) = 0\n\t(X - (%g)) = 0", -c / b);
-		return ;
+		printf("\t(X - (c/b)) = 0\n\t\033[35m(X - (%g))\033[0m = 0", -c / b);
 	}
 	else if (c != 0)
 	{
 		printf("YOU prove me that a == 0 with a != 0\n");
 		printf("it is unpossible to solve this equation -_-'' \n");
+		printf("\033[1;35m\t%g\033[0m = 0", c);
 	}
 	else
 	{
 		printf("0 = 0\nX is not in the equation so it could be anything\n");
 		printf("(All real numbers are solution)\n");
+		printf("\033[1;35m\t%g\033[0m = 0", c);
 	}
-	printf("\033[1;35m\t%g\033[0m = 0", c);
 }
 
 void		resolve_square(double a, double b, double c)
@@ -48,8 +48,8 @@ void		resolve_square(double a, double b, double c)
 		delta *= -1;
 	if (delta == 0)
 	{
-		printf("\n\n\033[32mDelta egal to 0\n-> Only one solution: \n\t\tX = ");
-		printf("%g\n-> (X - (%g))^2 = 0", (-b) / (2 * a), (-b) / (2 * a));
+		printf("\n\n\033[32mDelta egal to 0\n-> Only one solution: \n\tX = ");
+		printf("%g\n\n\t(X - (%g))^2 = 0", (-b) / (2 * a), (-b) / (2 * a));
 	}
 	else
 		print_res(a, b, delta, i);
