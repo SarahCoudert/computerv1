@@ -102,7 +102,7 @@ void		form_reduit(t_list *list, int etape)
 	if (etape == 1)
 		printf("Reduced form : \033[36m");
 	else
-		printf("Transitional step : \033[36m");
+		printf("\033[46mTransitional step :\033[0m \033[36m");
 	while (list)
 	{
 		if (ptr == list || STRU->multi * STRU->sign >= 0)

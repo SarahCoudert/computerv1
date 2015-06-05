@@ -14,10 +14,8 @@
 
 static void		sub_parse(char *s, int *i, t_stru *stru, t_list **list)
 {
-	printf("%s\n", s + *i);
 	stru->sign *= ft_skip(s, i, 1);
 	stru = fill_stru(i, stru, s);
-	printf("sign: %d\nmult: %f\nexp: %d\n", stru->sign, stru->multi, stru->exp);
 	ft_lstaddend((void*)stru, sizeof(t_stru), list);
 	ft_bzero(stru, sizeof(t_stru));
 }
