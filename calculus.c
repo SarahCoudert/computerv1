@@ -94,12 +94,15 @@ void		solv(t_list *list)
 	printf("\n");
 }
 
-void		form_reduit(t_list *list)
+void		form_reduit(t_list *list, int etape)
 {
-	t_list	*ptr;
+	t_listi	*ptr;
 
 	ptr = list;
-	printf("Forme reduite : \033[36m");
+	if (etape == 1)
+		printf("Reduced form : \033[36m");
+	else
+		printf("Transitional step : \033[36m");
 	while (list)
 	{
 		if (ptr == list || STRU->multi * STRU->sign >= 0)

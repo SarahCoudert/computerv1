@@ -6,7 +6,7 @@
 /*   By: scoudert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/01 18:43:41 by scoudert          #+#    #+#             */
-/*   Updated: 2015/06/04 22:14:16 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/04 19:12:18 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void		read_list(t_list *list, char *s)
 	{
 		printf("i = %d\n", i);
 		printf ("sign = %d\n", (int)STRU->sign);
-		printf ("multi = %f\n", STRU->multi);
+		printf ("multi = %d\n", (int)STRU->multi);
 		printf ("exp = %d\n\n", (int)STRU->exp);
 		list = list->next;
 	}
@@ -59,7 +59,7 @@ int		main(int ac, char **av)
 		read_list(list, "sort");
 		ptr = add_list(list);
 		read_list(ptr, "add");
-		form_reduit(ptr);
+		form_reduit(list);
 		solv(ptr);
 		ft_lstdel(&list, del);
 		ft_lstdel(&ptr, del);
