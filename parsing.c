@@ -6,7 +6,7 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/03 17:22:57 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/05 14:24:24 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/05 18:13:44 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,34 +48,11 @@ t_list			*parse(char *s)
 	return (list);
 }
 
-static double	fill_multi(int *i, char *s, int *bol, int *mult)
-{
-	double		v;
-
-	if (*bol == 0)
-		v = atof(s + *i);
-	else if (*mult == 1)
-		v *= atof(s + *i);
-	else
-		ft_put_error("parse error: missing '*' between around numbers", 2, -1);
-	while (ft_isdigit(s[*i]) != 0)
-		*i = *i + 1;
-	if (s[*i] == '.')
-	{
-		*i = *i + 1;
-		while (ft_isdigit(s[*i]) != 0)
-			*i = *i + 1;
-	}
-	*bol = 1;
-	*mult = 0;
-	return (v);
-}
-
-static int		fill_exp(int *i, char *s, int bol, t_stru *stru)
+static int		fill_exp(int *i, char *s, int *bol, t_stru *stru)
 {
 	*i = *i + 1;
-	if (bol != 1 && stru->multi == 0)
-		stru->multi = 1;
+	if (*bol != 1)
+		*bol = 1;
 	ft_skip(s, i, 0);
 	if (s[*i] == '^')
 	{
@@ -91,6 +68,29 @@ static int		fill_exp(int *i, char *s, int bol, t_stru *stru)
 	return (0);
 }
 
+static double	fill_multi(int *i, char *s, int *bol, int *mult)
+{
+	double		v;
+
+	if (*bol == 0)
+		v = atof(s + *i);
+	else if (*mult == 1)
+		v = atof(s + *i);
+	else
+		ft_put_error("parse error: missing '*' between around numbers", 2, -1);
+	while (ft_isdigit(s[*i]) != 0)
+		*i = *i + 1;
+	if (s[*i] == '.')
+	{
+		*i = *i + 1;
+		while (ft_isdigit(s[*i]) != 0)
+			*i = *i + 1;
+	}
+	*bol = 1;
+	*mult = 0;
+	return (v);
+}
+
 t_stru			*fill_stru(int *i, t_stru *stru, char *s)
 {
 	int		bol;
@@ -98,20 +98,23 @@ t_stru			*fill_stru(int *i, t_stru *stru, char *s)
 
 	bol = 0;
 	mult = 1;
+	stru->multi = 1;
 	while (s[*i] != '\0' && ((s[*i] != '-' && s[*i] != '+') || mult == 1)
 			&& s[*i] != '=')
 	{
 		stru->sign *= ft_skip(s, i, mult);
 		if ((ft_isdigit(s[*i])) != 0)
-			stru->multi = fill_multi(i, s, &bol, &mult);
+			stru->multi *= fill_multi(i, s, &bol, &mult);
 		else if (s[*i] == '*' && (mult = 1))
 			*i = *i + 1;
 		else if (s[*i] == 'X' || s[*i] == 'x')
-			mult = fill_exp(i, s, bol, stru);
+			mult = fill_exp(i, s, &bol, stru);
 		else
 			ft_put_error("parse error: invalid char", 2, -1);
 		ft_skip(s, i, 0);
 	}
+	if (bol == 0)
+		stru->multi = 0;
 	if (mult == 1)
 		ft_put_error("parse error: invalid format (eg: * =)", 2, -1);
 	return (stru);
