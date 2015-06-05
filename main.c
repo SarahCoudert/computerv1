@@ -6,7 +6,7 @@
 /*   By: scoudert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/01 18:43:41 by scoudert          #+#    #+#             */
-/*   Updated: 2015/06/05 16:32:12 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/05 17:19:02 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		main(int ac, char **av)
 		form_reduit(list, 0);
 		ptr = add_list(list);
 		form_reduit(ptr, 1);
-		solv(ptr);
+		solv(ptr, av[1]);
 		ft_lstdel(&list, del);
 		ft_lstdel(&ptr, del);
 	}

@@ -6,7 +6,7 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/04 14:32:06 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/05 14:56:05 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/05 17:22:12 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 void		resolve_other(double b, double c)
 {
 	if (b != 0)
-		printf("Lineare equation :\n\tX = %f / %g\n\t(X - (%g)) = 0", -c, b, c);
+		printf("Lineare equation :\n\tX = %g / %g\n\t(X - (%g)) = 0", -c, b, c);
 	else if (c != 0)
 	{
 		printf("Pretty funny but even with irreal number.\n");
 		printf("It is unpossible to solve this equation\n");
+		exit(0);
 	}
 	else
 	{
@@ -34,7 +35,7 @@ void		resolve_square(double a, double b, double c)
 	int		i;
 
 	delta = b * b - 4 * a * c;
-	printf("\n\033[32mDelta = %g", delta);
+	printf("\n\033[32mDelta = %g\na = %g\nb = %g\nc = %g\n", delta, a, b, c);
 	i = 0;
 	if (delta < 0 && (i = 1))
 		delta *= -1;
@@ -48,12 +49,12 @@ void		resolve_square(double a, double b, double c)
 		if (i == 1)
 			printf("%g + i * %g", (-b) / (2 * a), square_root(delta) / (2 * a));
 		else
-			printf("%g", (-b) + square_root(delta) / (2 * a));
+			printf("%g", ((-b) + square_root(delta)) / (2 * a));
 		printf("\n\tX_2 = ");
 		if (i == 1)
 			printf("%g - i * %g", (-b) / (2 * a), square_root(delta) / (2 * a));
 		else
-			printf("%g", (-b) - square_root(delta) / (2 * a));
+			printf("%g", ((-b) - square_root(delta)) / (2 * a));
 	}
 }
 
@@ -65,7 +66,7 @@ void		print_res(double a, double b, double delta)
 	printf("\tX_1 = ");
 }
 
-void		solv(t_list *list)
+void		solv(t_list *list, char *s)
 {
 	double	a;
 	double	b;
@@ -91,7 +92,7 @@ void		solv(t_list *list)
 		resolve_square(a, b, c);
 	else if (list == NULL || STRU->exp <= 2)
 		resolve_other(b, c);
-	printf("\n");
+	printf(" <===> %s\n", s);
 }
 
 void		form_reduit(t_list *list, int etape)

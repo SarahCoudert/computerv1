@@ -13,7 +13,7 @@ typedef struct		s_stru
 	int				exp;
 }					t_stru;
 
-void			solv(t_list *list);
+void			solv(t_list *list, char *s);
 double			ft_atof(char *str, int *i);
 t_list			*parse(char *s);
 t_stru			*fill_stru(int *i, t_stru *stru, char *s);
