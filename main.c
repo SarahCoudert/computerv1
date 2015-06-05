@@ -6,7 +6,7 @@
 /*   By: scoudert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/01 18:43:41 by scoudert          #+#    #+#             */
-/*   Updated: 2015/06/05 14:24:59 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/05 16:32:12 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 ** troisieme degres (pas a gerer)
 */
 
-int				ft_skip(char *s, int *i, int b)
+int		ft_skip(char *s, int *i, int b)
 {
-	int		n;
+	int	n;
 
 	n = 1;
 	while (ft_isspace(s[*i]) || s[*i] == '+' || s[*i] == '-')
@@ -70,7 +70,7 @@ int		main(int ac, char **av)
 		sort_list(list);
 		form_reduit(list, 0);
 		ptr = add_list(list);
-		form_reduit(list, 1);
+		form_reduit(ptr, 1);
 		solv(ptr);
 		ft_lstdel(&list, del);
 		ft_lstdel(&ptr, del);
