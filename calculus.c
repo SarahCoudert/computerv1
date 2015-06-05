@@ -6,7 +6,7 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/04 14:32:06 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/05 13:15:57 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/05 14:26:29 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void		resolve_other(double b, double c)
 {
 	if (b != 0)
-		printf("Lineare equation :\n\tX = %g / %g\n\t(X - (%g)) = 0", -c, b, c);
+		printf("Lineare equation :\n\tX = %f / %g\n\t(X - (%g)) = 0", -c, b, c);
 	else if (c != 0)
 	{
 		printf("Pretty funny but even with irreal number.\n");

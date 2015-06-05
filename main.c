@@ -6,7 +6,7 @@
 /*   By: scoudert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/01 18:43:41 by scoudert          #+#    #+#             */
-/*   Updated: 2015/06/05 13:17:01 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/05 14:24:59 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,28 @@
 ** "8 * X^0 - 6 * X^1 + 0 * X^2 - 5.6 * X^3 = 3 * X^0"
 ** troisieme degres (pas a gerer)
 */
+
+int				ft_skip(char *s, int *i, int b)
+{
+	int		n;
+
+	n = 1;
+	while (ft_isspace(s[*i]) || s[*i] == '+' || s[*i] == '-')
+	{
+		if (s[*i] == '+' || s[*i] == '-')
+		{
+			if (b == 1)
+			{
+				if (s[*i] == '-')
+					n *= -1;
+			}
+			else
+				return (n);
+		}
+		*i = *i + 1;
+	}
+	return (n);
+}
 
 void	read_list(t_list *list, char *s)
 {

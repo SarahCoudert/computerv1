@@ -6,7 +6,7 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/03 17:22:57 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/05 13:34:03 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/05 14:24:24 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void		sub_parse(char *s, int *i, t_stru *stru, t_list **list)
 	ft_bzero(stru, sizeof(t_stru));
 }
 
-t_list	*parse(char *s)
+t_list			*parse(char *s)
 {
 	int			i;
 	t_list		*list;
@@ -32,45 +32,22 @@ t_list	*parse(char *s)
 	stru = (t_stru*)ft_strnew(sizeof(t_stru));
 	list = NULL;
 	default_n = 1;
+	i = 0;
 	ft_skip(s, &i, 0);
 	s = s + i;
 	i = 0;
 	while ((stru->sign = default_n) && s[i] != '\0')
 	{
 		sub_parse(s, &i, stru, &list);
+		if (s[i] == '=' && default_n == -1)
+			ft_put_error("WARNING : Two '=' signs in string", 1, -1);
 		if (s[i] == '=' && ++i)
-		{
-			if (default_n == -1)
-				ft_put_error("WARNING : Two '=' signs in string", 1, -1);
 			default_n = -1;
-		}
 	}
 	if (i == 0)
 		ft_put_error("empty line", 2, -1);
 	free(stru);
 	return (list);
-}
-
-int		ft_skip(char *s, int *i, int b)
-{
-	int		n;
-
-	n = 1;
-	while (ft_isspace(s[*i]) || s[*i] == '+' || s[*i] == '-')
-	{
-		if (s[*i] == '+' || s[*i] == '-')
-		{
-			if (b == 1)
-			{
-				if (s[*i] == '-')
-					n *= -1;
-			}
-			else
-				return (n);
-		}
-		*i = *i + 1;
-	}
-	return (n);
 }
 
 static double	fill_multi(int *i, char *s, int *bol, int *mult)
@@ -96,7 +73,7 @@ static double	fill_multi(int *i, char *s, int *bol, int *mult)
 	return (v);
 }
 
-static int	fill_exp(int *i, char *s, int bol, t_stru *stru)
+static int		fill_exp(int *i, char *s, int bol, t_stru *stru)
 {
 	*i = *i + 1;
 	if (bol != 1 && stru->multi == 0)
@@ -116,7 +93,7 @@ static int	fill_exp(int *i, char *s, int bol, t_stru *stru)
 	return (0);
 }
 
-t_stru		*fill_stru(int *i, t_stru *stru, char *s)
+t_stru			*fill_stru(int *i, t_stru *stru, char *s)
 {
 	int		bol;
 	int		mult;
