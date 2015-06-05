@@ -11,72 +11,64 @@
 /* ************************************************************************** */
 
 #include "computer.h"
-#include <stdio.h>
 
 void		resolve_other(double b, double c)
 {
 	if (b != 0)
-		printf("Lineare equation :\n\tX = %f / %f\n==> (X - (%f)) = 0", -c, b, c);
+		printf("Lineare equation :\n\tX = %g / %g\n\t(X - (%g)) = 0", -c, b, c);
 	else if (c != 0)
-		printf("Pretty funny but even with irreal number, it is unpossible to solve this equation\n");
+	{
+		printf("Pretty funny but even with irreal number.\n");
+		printf("It is unpossible to solve this equation\n");
+	}
 	else
-		printf("0 = 0\nX is not in the equation so it could be anything\n(tous les nombres reels sont solutions)\n");
+	{
+		printf("0 = 0\nX is not in the equation so it could be anything\n");
+		printf("(All real numbers are solution)\n");
+	}
 }
 
 void		resolve_square(double a, double b, double c)
 {
-	int			delta;
-	int			i;
+	double	delta;
+	int		i;
 
 	delta = b * b - 4 * a * c;
+	printf("\n\033[32m△ = %g", delta);
 	i = 0;
-	ft_putstr("\n\033[32m△ = ");
-	ft_putnbr(delta);
 	if (delta < 0 && (i = 1))
 		delta *= -1;
 	if (delta == 0)
 	{
-		ft_putstr("\n\n\033[32m==> △  egal to 0\n↪ Only one solution: \n\t\tX = ");
-		ft_putnbr((-b) / (2 * a));
-		ft_putstr("\n⇨ (X - ");
-		ft_putnbr((-b) / (2 * a));
-		ft_putstr(")² = 0");
+		printf("\n\n\033[32m==> △ egal to 0\n-> Only one solution: \n\t\tX = ");
+		printf("%g \n-> (X - (%g))² = 0", (-b) / (2 * a), (-b) / (2 * a));
 	}
 	else
 	{
-		ft_putstr("\n\n\033[32m==> △  different from 0 \n↪ Two solutions: \n");
-		printf("    %f ± √(%d)\n_________________________\n     (2 * %f)\n\n"
+		printf("\n\n\033[32m==> △  different from 0 \n-> Two solutions: \n");
+		printf("\t%g ± √(%g)\n  _________________________\n\t(2 * %g)\n\n"
 			, -b, delta, a);
-		ft_putstr("\tX_1 = ");
+		printf("\tX_1 = ");
 		if (i == 1)
-		{
-			ft_putnbr((-b) / (2 * a));
-			ft_putstr(" + i * ");
-			ft_putnbr((int)square_root(delta) / (2 * a));
-		}
+			printf("%g + i * %g", (-b) / (2 * a), square_root(delta) / (2 * a));
 		else
-			ft_putnbr((-b) + (int)square_root(delta) / (2 * a));
-		ft_putstr("\n\tX_2 = ");
+			printf("%g", (-b) + square_root(delta) / (2 * a));
+		printf("\n\tX_2 = ");
 		if (i == 1)
-		{
-			ft_putnbr((-b) / (2 * a));
-			ft_putstr(" - i * ");
-			ft_putnbr((int)square_root(delta) / (2 * a));
-		}
+			printf("%g - i * %g", (-b) / (2 * a), square_root(delta) / (2 * a));
 		else
-			ft_putnbr((-b) - (int)square_root(delta) / (2 * a));
+			printf("%g", (-b) - square_root(delta) / (2 * a));
 	}
-	ft_putendl("");
 }
 
 void		solv(t_list *list)
 {
-	double		a;
-	double		b;
-	double		c;
+	double	a;
+	double	b;
+	double	c;
 
 	if (STRU->exp > 2)
-		ft_put_error("\033[31mExposant bigger than 2\nUnable to resolve", 2, -1);
+		printf("\033[31mExposant bigger than 2\nInsolvable\033[0m\n");
 	if ((a = 0) || STRU->exp == 2)
 	{
 		a = STRU->multi * STRU->sign;
@@ -87,34 +79,36 @@ void		solv(t_list *list)
 		b = STRU->multi * STRU->sign;
 		list = list->next;
 	}
-	if ((c = 0) || (list != NULL && STRU->exp == 0))
-	{
+	else if ((c = 0) || (list != NULL && STRU->exp == 0))
 		c = STRU->multi * STRU->sign;
-		list = list->next;
-	}
-	if (list != NULL && STRU->exp < 0)
-		ft_put_error("\033[31mExposant smaller than 0\nUnable to solve", 2, -1);
-	if (a != 0)
+	if ((list && STRU->exp < 0) || list && list->next && STRU_NEXT->exp < 0)
+		printf("\033[31mExposant smaller than 0\nInsolvable\033[0m\n");
+	else if (a != 0 && (list == NULL || STRU->exp <= 2))
 		resolve_square(a, b, c);
-	else
+	else if (list == NULL || STRU->exp <= 2)
 		resolve_other(b, c);
+	printf("\n");
 }
 
-void		form_reduit(t_list *list)
+void	form_reduit(t_list *list)
 {
 	t_list *ptr;
 
 	ptr = list;
-	ft_putstr("Forme reduite :");
+	printf("Forme reduite : \033[36m");
 	while (list)
 	{
-		printf(" %f * X^%d ", STRU->multi, STRU->exp);
+		if (ptr == list || STRU->multi * STRU->sign >= 0)
+			printf(" %g * X^%d ", STRU->multi * STRU->sign, STRU->exp);
+		else
+			printf(" %g * X^%d ", -1 * STRU->multi * STRU->sign, STRU->exp);
 		if (list->next && STRU_NEXT->multi * STRU_NEXT->sign >= 0)
 			printf("+");
 		else if (list->next && STRU_NEXT->multi * STRU_NEXT->sign < 0)
 			printf("-");
 		list = list->next;
 	}
-	printf(" = 0\n");
+	printf("\033[0m= 0\n");
 	list = ptr;
+	printf("\033[104mPolynomial degree : %d\033[0m\n", STRU->exp);
 }

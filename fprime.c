@@ -1,7 +1,23 @@
-///algo de la fonction d'affichage de tous les fprime
-//(300 ==> 2 * 2 * 3 * 5 * 5)
-// ce qui permet de montrer sqrt(150) == 5 * 2 * sqrt(3)
-// VALABLE SEULEMENT POUR LES NOMBRES ENTIERS
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fprime.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: scoudert <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/06/05 10:12:44 by scoudert          #+#    #+#             */
+/*   Updated: 2015/06/05 10:13:48 by scoudert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/*
+**algo de la fonction d'affichage de tous les fprime
+**(300 ==> 2 * 2 * 3 * 5 * 5)
+** ce qui permet de montrer sqrt(150) == 5 * 2 * sqrt(3)
+** VALABLE SEULEMENT POUR LES NOMBRES ENTIERS
+** pgcd :
+**trouve le plus grand commun diviseur (permet de  simplifier les fractions)
+*/
 
 void f(int nbr)
 {
@@ -9,7 +25,7 @@ void f(int nbr)
 
 	if (nbr < 0)
 	{
-		print("-1"); // le fameux i
+		print("-1");
 		nbr *= -1;
 	}
 	if (nbr == 0 || nbr == 1)
@@ -28,9 +44,6 @@ void f(int nbr)
 			n++;
 	}
 }
-
-
-//trouve le plus grand commun diviseur (permet de  simplifier les fractions)
 
 int			pgcd(int c, int v)
 {
