@@ -6,10 +6,9 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/02 15:03:30 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/04 21:19:09 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/05 19:46:06 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 float		ft_atof(const char *str)
 {
@@ -39,68 +38,3 @@ float		ft_atof(const char *str)
 		signe = signe * 10;
 	return (n / signe);
 }
-
-// #include "computer.h"
-
-// double		ft_atof(char *str, int *i)
-// {
-// 	double	nbr;
-// 	double	vir;
-// 	int		sign;
-// 	int		t;
-
-// 	sign = 1;
-// 	nbr = 0.0;
-// 	vir = 0.0;
-// 	if (str[*i] == '-')
-// 	{
-// 		*i = *i + 1;
-// 		sign = -1;
-// 	}
-// 	while (str[*i] != '\0' && ft_isdigit(str[*i]))
-// 	{
-// 		nbr = (nbr * 10) + str[*i] - '0';
-// 		*i = *i + 1;
-// 	}
-// 	if (str[*i] == '.' || str[*i] == ',')
-// 	{
-// 		*i = *i + 1;
-// 		t = *i;
-// 		while (ft_isdigit(str[t + *i]) && t <= *i + 7)
-// 			t++;
-// 		while (str[--t] != ',' && str[t] != '.')
-// 		{
-// 			vir = (vir / 10) + str[t] - '0';
-// 			*i = *i + 1;
-// 		}
-// 		vir = vir / 10;
-// 		*i = *i + 1;
-// 	}
-// 	return (sign * (nbr + vir));
-// }
-
-// void	ft_putdouble(double nbr)
-// {
-// 	ft_putnbr(nbr);
-// 	nbr = nbr - (nbr / 1);
-// 	if (nbr < 1 && nbr > 0)
-// 	{
-// 			ft_putchar('.');
-// 	}
-// }
-// /*
-// void	ft_putdouble(double nbr)
-// {
-// 	int		t;
-// 	int		v;
-
-// 	v = 1;
-// 	while (nbr / v >= 1)
-// 		v = v * 10;
-// 	while (nbr >= 1)
-// 	{
-// 		ft_putchar(nbr / v);
-// 		v = v / 10;
-// 		nbr = nbr / 10;
-// 	}
-// }*/

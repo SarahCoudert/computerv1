@@ -6,7 +6,7 @@
 /*   By: scoudert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/01 18:43:41 by scoudert          #+#    #+#             */
-/*   Updated: 2015/06/05 18:50:37 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/05 20:03:47 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,23 +64,25 @@ int		main(int ac, char **av)
 	t_list	*ptr;
 
 	list = NULL;
-	if (ac == 2)
+	if (ac != 2)
+		ft_put_error("\033[31mWrong number of arguments", 1, -1);
+	list = parse(av[1]);
+	sort_list(list);
+	form_reduit(list, 0);
+	ptr = add_list(list);
+	form_reduit(ptr, 1);
+	if (((t_stru*)(ptr->content))->exp < 0)
+		printf("\033[31mExposant smaller than 0,\nunable to solve\033[0m");
+	else
 	{
-		list = parse(av[1]);
-		sort_list(list);
-		form_reduit(list, 0);
-		ptr = add_list(list);
-		form_reduit(ptr, 1);
 		solv(ptr);
 		printf("\033[0m\nis the simplified form of\033[36m\n====>\t%s\033[0m",
-				av[1]);
+			av[1]);
 		if (!ft_strchr(av[1], '='))
 			printf(" = 0");
-		printf("\n");
-		ft_lstdel(&list, del);
-		ft_lstdel(&ptr, del);
 	}
-	else
-		ft_put_error("\033[31mWrong number of arguments", 1, -1);
+	printf("\n");
+	ft_lstdel(&list, del);
+	ft_lstdel(&ptr, del);
 	return (0);
 }

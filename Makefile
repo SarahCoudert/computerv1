@@ -6,7 +6,7 @@ NAME=computor
 
 CC=gcc
 
-SRC=main.c parsing.c ft_atof.c math.c calculus.c
+SRC=main.c parsing.c math.c calculus.c
 
 INC=libft/includes
 

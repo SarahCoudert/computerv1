@@ -6,7 +6,7 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/04 14:32:06 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/05 18:51:33 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/05 20:23:22 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,20 @@ void		resolve_other(double b, double c)
 		printf("First degree equation resolution :\n\tX = (-c / b)\n\t");
 		printf ("X = (%g / %g)\n\t\033[32m", -c, b);
 		printf("Solution : X = %g\n\033[00m", ((-c) / b));
-		printf("\t(X - (c/b)) = 0\n\t(X - (%g)) = 0\n", -c / b);
+		printf("\t(X - (c/b)) = 0\n\t(X - (%g)) = 0", -c / b);
+		return ;
 	}
 	else if (c != 0)
 	{
-		printf("Pretty funny but even with irreal number,");
-		printf(" it is unpossible to solve this equation\n");
+		printf("YOU prove me that a == 0 with a != 0\n");
+		printf("it is unpossible to solve this equation -_-'' \n");
 	}
 	else
 	{
 		printf("0 = 0\nX is not in the equation so it could be anything\n");
 		printf("(All real numbers are solution)\n");
 	}
+	printf("\033[1;35m\t%g\033[0m = 0", c);
 }
 
 void		resolve_square(double a, double b, double c)
@@ -39,24 +41,27 @@ void		resolve_square(double a, double b, double c)
 	int		i;
 
 	delta = b * b - 4 * a * c;
-	printf("\nfull resolution formula : (-b ± √(b^2 - 4ac)) / 2a\n");
+	printf("\nfull resolution formula : X = (-b +/- \\/(b^2 - 4ac)) / 2a\n");
 	printf("\n\033[32mDelta = %g\na = %g\nb = %g\nc = %g\n", delta, a, b, c);
 	i = 0;
 	if (delta < 0 && (i = 1))
 		delta *= -1;
 	if (delta == 0)
+	{
 		printf("\n\n\033[32mDelta egal to 0\n-> Only one solution: \n\t\tX = ");
-	if (delta == 0)
 		printf("%g\n-> (X - (%g))^2 = 0", (-b) / (2 * a), (-b) / (2 * a));
+	}
 	else
 		print_res(a, b, delta, i);
 	if (i == 0)
-		printf("\n\t(X - (%g)) * (X - (%g)) = 0", ((-b) + square_root(delta))
-			/ (2 * a), ((-b) - square_root(delta)) / (2 * a));
+		printf("\n\t\033[1;35m(X - (%g)) * (X - (%g))",
+				((-b) + square_root(delta)) / (2 * a), ((-b)
+				- square_root(delta)) / (2 * a));
 	else
-		printf("\n\t(X - (%g + i * (%g))) * (X - (%g + i * (%g)))",
-			(-b) / (2 * a), square_root(delta) / (2 * a),
-			(-b) / (2 * a), square_root(delta) / (2 * a));
+		printf("\n\t\033[1;35m(X - (%g + i * (%g))) * (X - (%g + i * (%g)))",
+				(-b) / (2 * a), square_root(delta) / (2 * a),
+				(-b) / (2 * a), square_root(delta) / (2 * a));
+	printf("\033[0m = 0");
 }
 
 void		print_res(double a, double b, double delta, int i)
@@ -82,11 +87,9 @@ void		solv(t_list *list)
 	double	b;
 	double	c;
 
-	if (STRU->exp > 2)
-		printf("\033[31mExposant bigger than 2\nInsolvable\033[0m\n");
-	if ((a = 0) || STRU->exp == 2)
+	if ((c = 0) || (list != NULL && STRU->exp == 0))
 	{
-		a = STRU->multi * STRU->sign;
+		c = STRU->multi * STRU->sign;
 		list = list->next;
 	}
 	if ((b = 0) || (list != NULL && STRU->exp == 1))
@@ -94,13 +97,13 @@ void		solv(t_list *list)
 		b = STRU->multi * STRU->sign;
 		list = list->next;
 	}
-	if ((c = 0) || (list != NULL && STRU->exp == 0))
-		c = STRU->multi * STRU->sign;
-	if ((list && STRU->exp < 0) || (list && list->next && STRU_NEXT->exp < 0))
-		printf("\033[31mExposant smaller than 0\nInsolvable\033[0m\n");
-	else if (a != 0 && (list == NULL || STRU->exp <= 2))
+	if ((a = 0) || (list != NULL && STRU->exp == 2))
+		a = STRU->multi * STRU->sign;
+	if ((list && STRU->exp > 2) || (list && list->next && STRU_NEXT->exp > 2))
+		printf("\033[31mExposant bigger than 2\nInsolvable\033[0m\n");
+	else if (a != 0 && (list == NULL || (STRU->exp <= 2)))
 		resolve_square(a, b, c);
-	else if (list == NULL || STRU->exp <= 2)
+	else
 		resolve_other(b, c);
 }
 

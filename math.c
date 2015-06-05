@@ -6,7 +6,7 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/05 11:31:00 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/05 11:31:03 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/05 19:26:04 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_list		*sort_list(t_list *list)
 	ptr = list;
 	while (list->next)
 	{
-		if (STRU->exp < STRU_NEXT->exp)
+		if (STRU->exp > STRU_NEXT->exp)
 		{
 			temp.exp = (STRU)->exp;
 			(STRU)->exp = STRU_NEXT->exp;
