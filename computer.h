@@ -1,11 +1,10 @@
 #ifndef COMPUTER_H
 # define COMPUTER_H
 
-#include "libft/includes/libft.h"
-#include <stdio.h>
-#define STRU		((t_stru*)(list->content))
-#define STRU_NEXT	((t_stru*)(list->next->content))
-
+# include "libft/includes/libft.h"
+# include <stdio.h>
+# define STRU		((t_stru*)(list->content))
+# define STRU_NEXT	((t_stru*)(list->next->content))
 
 typedef struct		s_stru
 {
@@ -22,6 +21,7 @@ int				ft_skip(char *s, int *i, int b);
 t_list			*sort_list(t_list *list);
 double			square_root(double n);
 t_list			*add_list(t_list *list);
-void			form_reduit(t_list *list);
+void			form_reduit(t_list *list, int etape);
+void			print_res(double a, double b, double delta);
 
 #endif

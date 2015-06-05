@@ -6,7 +6,7 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/04 14:32:06 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/04 21:41:21 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/05 13:15:57 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,17 @@ void		resolve_square(double a, double b, double c)
 	int		i;
 
 	delta = b * b - 4 * a * c;
-	printf("\n\033[32m△ = %g", delta);
+	printf("\n\033[32mDelta = %g", delta);
 	i = 0;
 	if (delta < 0 && (i = 1))
 		delta *= -1;
 	if (delta == 0)
-	{
-		printf("\n\n\033[32m==> △ egal to 0\n-> Only one solution: \n\t\tX = ");
-		printf("%g \n-> (X - (%g))² = 0", (-b) / (2 * a), (-b) / (2 * a));
-	}
+		printf("\n\n\033[32mDelta egal to 0\n-> Only one solution: \n\t\tX = ");
+	if (delta == 0)
+		printf("%g\n-> (X - (%g))^2 = 0", (-b) / (2 * a), (-b) / (2 * a));
 	else
 	{
-		printf("\n\n\033[32m==> △  different from 0 \n-> Two solutions: \n");
-		printf("\t%g ± √(%g)\n  _________________________\n\t(2 * %g)\n\n"
-			, -b, delta, a);
-		printf("\tX_1 = ");
+		print_res(a, b, delta);
 		if (i == 1)
 			printf("%g + i * %g", (-b) / (2 * a), square_root(delta) / (2 * a));
 		else
@@ -59,6 +55,14 @@ void		resolve_square(double a, double b, double c)
 		else
 			printf("%g", (-b) - square_root(delta) / (2 * a));
 	}
+}
+
+void		print_res(double a, double b, double delta)
+{
+	printf("\n\n\033[32mDelta  different from 0 \n-> Two solutions: \n");
+	printf("\t%g ± √(%g)\n _________________________\n\t(2 * %g)\n\n"
+		, -b, delta, a);
+	printf("\tX_1 = ");
 }
 
 void		solv(t_list *list)
@@ -81,7 +85,7 @@ void		solv(t_list *list)
 	}
 	else if ((c = 0) || (list != NULL && STRU->exp == 0))
 		c = STRU->multi * STRU->sign;
-	if ((list && STRU->exp < 0) || list && list->next && STRU_NEXT->exp < 0)
+	if ((list && STRU->exp < 0) || (list && list->next && STRU_NEXT->exp < 0))
 		printf("\033[31mExposant smaller than 0\nInsolvable\033[0m\n");
 	else if (a != 0 && (list == NULL || STRU->exp <= 2))
 		resolve_square(a, b, c);
@@ -90,12 +94,15 @@ void		solv(t_list *list)
 	printf("\n");
 }
 
-void	form_reduit(t_list *list)
+void		form_reduit(t_list *list, int etape)
 {
-	t_list *ptr;
+	t_list	*ptr;
 
 	ptr = list;
-	printf("Forme reduite : \033[36m");
+	if (etape == 1)
+		printf("Reduced form : \033[36m");
+	else
+		printf("Transitional step : \033[36m");
 	while (list)
 	{
 		if (ptr == list || STRU->multi * STRU->sign >= 0)
