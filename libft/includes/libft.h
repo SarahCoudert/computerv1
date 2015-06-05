@@ -6,7 +6,7 @@
 /*   By: scoudert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/10 16:11:11 by scoudert          #+#    #+#             */
-/*   Updated: 2015/06/02 10:52:14 by scoudert         ###   ########.fr       */
+/*   Updated: 2015/06/05 17:46:09 by scoudert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void				*ft_memmove(void *dest, const void *src, size_t n);
 void				ft_putnbr(int nb);
 void				ft_memdel(void **ap);
 void				*ft_memalloc(size_t size);
-void				ft_put_error(char* m, int fd, int e);
+void				ft_put_error(char *m, int fd, int e);
 
 char				*ft_strcpy(char *dest, const char *src);
 char				*ft_strdup(const char *s);
