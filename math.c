@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   math.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/06/05 11:31:00 by mgrimald          #+#    #+#             */
+/*   Updated: 2015/06/05 11:31:03 by mgrimald         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "computer.h"
 
 double		square_root(double n)
@@ -27,7 +39,7 @@ t_list		*sort_list(t_list *list)
 	{
 		if (STRU->exp < STRU_NEXT->exp)
 		{
- 			temp.exp = (STRU)->exp;
+			temp.exp = (STRU)->exp;
 			(STRU)->exp = STRU_NEXT->exp;
 			STRU_NEXT->exp = temp.exp;
 			temp.multi = STRU->multi;

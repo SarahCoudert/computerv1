@@ -6,58 +6,44 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/03 17:22:57 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/04 22:14:01 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/05 13:12:22 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
- ** Input examples :
- ** "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"
- ** seconde degres
- ** forme reduite : "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 0
- ** "4 * X^0 + 4 * X^1 = 4 * X^0"
- ** premier degres
- ** "8 * X^0 - 6 * X^1 + 0 * X^2 - 5.6 * X^3 = 3 * X^0"
- ** troisieme degres (pas a gerer)
- ** useful char : △ 
- */
-
 #include "computer.h"
 
-int			ft_skip(char *s, int *i, int b);
-t_list		*parse(char *s);
-t_stru		*fill_stru(int *i, t_stru *stru, char *s);
-
-t_list		*parse(char *s)
+static void		sub_parse(char *s, int *i, t_stru *stru, t_list *list)
 {
-	int		i;
-	t_list	*list;
-	t_stru*	stru;
-	int		default_n;
+	printf("%s\n", s + *i);
+	stru->sign *= ft_skip(s, i, 1);
+	stru = fill_stru(i, stru, s);
+	printf("sign: %d\nmult: %f\nexp: %d\n", stru->sign, stru->multi, stru->exp);
+	ft_lstaddend((void*)stru, sizeof(t_stru), &list);
+	ft_bzero(stru, sizeof(t_stru));
+}
+
+t_list	*parse(char *s)
+{
+	int			i;
+	t_list		*list;
+	t_stru		*stru;
+	int			default_n;
 
 	stru = (t_stru*)ft_strnew(sizeof(t_stru));
-	i = 0;
 	list = NULL;
 	default_n = 1;
-	stru->sign = 1;
 	ft_skip(s, &i, 0);
 	s = s + i;
 	i = 0;
-	while (s[i] != '\0')
+	while ((stru->sign = default_n) && s[i] != '\0')
 	{
-		ft_putendl(s + i);
-		stru->sign *= ft_skip(s, &i, 1);
-		stru = fill_stru(&i, stru, s);
-		printf("sign: %d\nmulti: %f\nexp: %d\n", stru->sign, stru->multi, stru->exp);
-		ft_lstaddend((void*)stru, sizeof(t_stru), &list);
+		sub_parse(s, &i, stru, list);
 		if (s[i] == '=' && ++i)
 		{
 			if (default_n == -1)
 				ft_put_error("WARNING : Two '=' signs in string", 1, -1);
 			default_n = -1;
 		}
-		ft_bzero(stru, sizeof(t_stru));
-		stru->sign = default_n;
 	}
 	if (i == 0)
 		ft_put_error("empty line", 2, -1);
@@ -65,7 +51,7 @@ t_list		*parse(char *s)
 	return (list);
 }
 
-int			ft_skip(char *s, int *i, int b)
+int		ft_skip(char *s, int *i, int b)
 {
 	int		n;
 
@@ -87,6 +73,49 @@ int			ft_skip(char *s, int *i, int b)
 	return (n);
 }
 
+static int	fill_multi(int *i, char *s, int *bol, int *mult)
+{
+	double		v;
+
+	if (*bol == 0)
+		v = atof(s + *i);
+	else if (*mult == 1)
+		v *= atof(s + *i);
+	else
+		ft_put_error("parse error: missing '*' between around numbers", 2, -1);
+	while (ft_isdigit(s[*i]) != 0)
+		*i = *i + 1;
+	if (s[*i] == '.')
+	{
+		*i = *i + 1;
+		while (ft_isdigit(s[*i]) != 0)
+			*i = *i + 1;
+	}
+	*bol = 1;
+	*mult = 0;
+	return (v);
+}
+
+static int	fill_exp(int *i, char *s, int bol, t_stru *stru)
+{
+	*i = *i + 1;
+	if (bol != 1 && stru->multi == 0)
+		stru->multi = 1;
+	ft_skip(s, i, 0);
+	if (s[*i] == '^')
+	{
+		*i = *i + 1;
+		stru->exp += ft_skip(s, i, 1) * ft_atoi(s + *i);
+		if (ft_isdigit(s[*i]) != 1)
+			ft_put_error("parse error: after '^' ", 2, -1);
+		while (s[*i] && ft_isdigit(s[*i]))
+			*i = *i + 1;
+	}
+	else
+		stru->exp += 1;
+	return (0);
+}
+
 t_stru		*fill_stru(int *i, t_stru *stru, char *s)
 {
 	int		bol;
@@ -94,54 +123,21 @@ t_stru		*fill_stru(int *i, t_stru *stru, char *s)
 
 	bol = 0;
 	mult = 1;
-	while (s[*i] != '\0' && ((s[*i] != '-' && s[*i] != '+') || mult == 1) && s[*i] != '=')
+	while (s[*i] != '\0' && ((s[*i] != '-' && s[*i] != '+') || mult == 1)
+			&& s[*i] != '=')
 	{
 		stru->sign *= ft_skip(s, i, mult);
 		if ((ft_isdigit(s[*i])) != 0)
-		{
-			if (bol == 0)
-				stru->multi = atof(s + *i);
-			else if (mult == 1)
-				stru->multi *= atof(s + *i);
-			else
-				ft_put_error("error : nbr_1    nbr_2 (NO MULT SIGN)", 2, -1);
-			while (ft_isdigit(s[*i]) != 0 || s[*i] == '.')
-				*i = *i + 1;
-			bol = 1;
-			mult = 0;
-		}
+			stru->multi = fill_multi(i, s, &bol, &mult);
 		else if (s[*i] == '*' && (mult = 1))
 			*i = *i + 1;
 		else if (s[*i] == 'X' || s[*i] == 'x')
-		{
-			*i = *i + 1;
-			if (bol != 1 && stru->multi == 0)
-				stru->multi = 1;
-			ft_skip(s, i, 0);
-			if (s[*i] == '^')
-			{
-				*i = *i + 1;
-				stru->exp += ft_skip(s, i, 1) * ft_atoi(s + *i);
-				if (ft_isdigit(s[*i]) != 1)
-					ft_put_error("invalid char around ^", 2, -1);
-				while (s[*i] && ft_isdigit(s[*i]))
-					*i = *i + 1;
-			}
-			else
-				stru->exp += 1;
-			mult = 0;
-		}
+			mult = fill_exp(i, s, bol, stru);
 		else
-		{
-			ft_putendl("invalid char :");
-			ft_put_error(s + *i, 2, -1);
-		}
+			ft_put_error("parse error: invalid char", 2, -1);
 		ft_skip(s, i, 0);
 	}
 	if (mult == 1)
-	{
-		ft_putendl("invalid format around :");
-		ft_put_error(s + *i, 2, -1);
-	}
+		ft_put_error("parse error: invalid format (eg: * =)", 2, -1);
 	return (stru);
 }

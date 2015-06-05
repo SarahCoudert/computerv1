@@ -6,7 +6,7 @@
 /*   By: scoudert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/01 18:43:41 by scoudert          #+#    #+#             */
-/*   Updated: 2015/06/04 22:14:16 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/05 11:49:46 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,35 +22,27 @@
 ** troisieme degres (pas a gerer)
 */
 
-#include <stdio.h>
-
-void		read_list(t_list *list, char *s)
+void	read_list(t_list *list, char *s)
 {
 	int i;
-	int l;
 
-	l = ft_lstcountelements(list);
-	i = 0;
-	printf ("%s\n\n", s);
-	for (i = 0; i < l; i++)
+	printf ("\n%s\n", s);
+	while (list)
 	{
-		printf("i = %d\n", i);
-		printf ("sign = %d\n", (int)STRU->sign);
+		printf ("sign = %d\n", STRU->sign);
 		printf ("multi = %f\n", STRU->multi);
-		printf ("exp = %d\n\n", (int)STRU->exp);
+		printf ("exp = %d\n\n", STRU->exp);
 		list = list->next;
 	}
 	printf ("\n\n");
 }
 
-void	solv(t_list *list);
-
 int		main(int ac, char **av)
 {
 	t_list	*list;
 	t_list	*ptr;
+
 	list = NULL;
-	(void)av;
 	if (ac == 2)
 	{
 		list = parse(av[1]);
