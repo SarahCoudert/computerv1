@@ -6,7 +6,7 @@
 /*   By: mgrimald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/04 14:32:06 by mgrimald          #+#    #+#             */
-/*   Updated: 2015/06/05 18:40:16 by mgrimald         ###   ########.fr       */
+/*   Updated: 2015/06/05 18:51:33 by mgrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void		resolve_square(double a, double b, double c)
 	int		i;
 
 	delta = b * b - 4 * a * c;
+	printf("\nfull resolution formula : (-b ± √(b^2 - 4ac)) / 2a\n");
 	printf("\n\033[32mDelta = %g\na = %g\nb = %g\nc = %g\n", delta, a, b, c);
 	i = 0;
 	if (delta < 0 && (i = 1))
@@ -48,26 +49,31 @@ void		resolve_square(double a, double b, double c)
 	if (delta == 0)
 		printf("%g\n-> (X - (%g))^2 = 0", (-b) / (2 * a), (-b) / (2 * a));
 	else
-	{
-		print_res(a, b, delta);
-		if (i == 1)
-			printf("%g + i * %g", (-b) / (2 * a), square_root(delta) / (2 * a));
-		else
-			printf("%g", ((-b) + square_root(delta)) / (2 * a));
-		printf("\n\tX_2 = ");
-		if (i == 1)
-			printf("%g - i * %g", (-b) / (2 * a), square_root(delta) / (2 * a));
-		else
-			printf("%g", ((-b) - square_root(delta)) / (2 * a));
-	}
+		print_res(a, b, delta, i);
+	if (i == 0)
+		printf("\n\t(X - (%g)) * (X - (%g)) = 0", ((-b) + square_root(delta))
+			/ (2 * a), ((-b) - square_root(delta)) / (2 * a));
+	else
+		printf("\n\t(X - (%g + i * (%g))) * (X - (%g + i * (%g)))",
+			(-b) / (2 * a), square_root(delta) / (2 * a),
+			(-b) / (2 * a), square_root(delta) / (2 * a));
 }
 
-void		print_res(double a, double b, double delta)
+void		print_res(double a, double b, double delta, int i)
 {
 	printf("\n\n\033[32mDelta  different from 0 \n-> Two solutions: \n");
 	printf("\t%g ± √(%g)\n _________________________\n\t(2 * %g)\n\n"
 		, -b, delta, a);
 	printf("\tX_1 = ");
+	if (i == 1)
+		printf("%g + i * %g", (-b) / (2 * a), square_root(delta) / (2 * a));
+	else
+		printf("%g", ((-b) + square_root(delta)) / (2 * a));
+	printf("\n\tX_2 = ");
+	if (i == 1)
+		printf("%g - i * %g", (-b) / (2 * a), square_root(delta) / (2 * a));
+	else
+		printf("%g", ((-b) - square_root(delta)) / (2 * a));
 }
 
 void		solv(t_list *list)
