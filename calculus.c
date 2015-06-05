@@ -83,7 +83,7 @@ void		solv(t_list *list)
 		b = STRU->multi * STRU->sign;
 		list = list->next;
 	}
-	else if ((c = 0) || (list != NULL && STRU->exp == 0))
+	if ((c = 0) || (list != NULL && STRU->exp == 0))
 		c = STRU->multi * STRU->sign;
 	if ((list && STRU->exp < 0) || (list && list->next && STRU_NEXT->exp < 0))
 		printf("\033[31mExposant smaller than 0\nInsolvable\033[0m\n");
