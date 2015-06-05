@@ -19,12 +19,12 @@ void		resolve_other(double b, double c)
 		printf("First degree equation resolution :\n\tX = (-c / b)\n\t");
 		printf ("X = (%g / %g)\n\t\033[32m", -c, b);
 		printf("Solution : X = %g\n\033[00m", ((-c) / b));
-		printf("\t(X - (c/b)) = 0\n\t(X - (%g)) = 0\n", -c/b);
+		printf("\t(X - (c/b)) = 0\n\t(X - (%g)) = 0\n", -c / b);
 	}
 	else if (c != 0)
 	{
-		printf("Pretty funny but even with irreal number.\n");
-		printf("It is unpossible to solve this equation\n");
+		printf("Pretty funny but even with irreal number,");
+		printf(" it is unpossible to solve this equation\n");
 	}
 	else
 	{
@@ -123,7 +123,7 @@ void		form_reduit(t_list *list, int etape)
 	printf("\033[0m= 0\n");
 	list = ptr;
 	if (etape == 1)
-		printf("\033[104mPolynomial degree : %d\033[0m\n", STRU->exp);
+		printf("\033[104mPolynomial degree :\033[0m %d\n", STRU->exp);
 	else
 		printf("\n");
 }
